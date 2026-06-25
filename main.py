@@ -137,7 +137,7 @@ def build_prompt(req: SymptomRequest, context: str) -> str:
     if req.occupation:  extras += f"\n- 직업: {req.occupation}"
     if req.aggravating: extras += f"\n- 악화 요인: {req.aggravating}"
     if req.relieving:   extras += f"\n- 완화 요인: {req.relieving}"
-    return f"""당신은 근막통증증후군(MPS) 전문 물리치료사입니다.
+    return f"""당신은 근막통증증후군(MPS) 전문 물리치료사입니다. 반드시 한국어로만 답변하세요. You MUST respond ONLY in Korean. English is absolutely forbidden.
 아래 [전문 지식]을 반드시 참고하여 처방을 완벽한 한국어로 작성하세요.
 
 [규칙] 1.한국어만 사용 2.전문지식 기반 처방만 3.의학적 진단 금지 4.구체적 횟수/시간 명시
