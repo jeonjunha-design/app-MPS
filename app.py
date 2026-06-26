@@ -13,6 +13,7 @@ st.markdown("""
 .warning-card {
     background: #fff8e1; border-left: 4px solid #f0a500;
     padding: 0.8rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+    color: #333333;
 }
 .expert-card {
     background: #e8f4fd; border-left: 4px solid #2d6a9f;
@@ -53,14 +54,6 @@ with st.sidebar:
     st.caption("• Frontiers in Physiology 2026")
 
 # 전문가 상담 고지
-st.markdown("""
-<div class="expert-card">
-🩺 <strong>전문가 상담 안내:</strong>
-본 시스템은 근막통증증후군에 관한 <strong>참고용 정보</strong>를 제공합니다.
-정확한 진단과 치료를 위해서는 반드시 <strong>의사에게 진찰과 처방을 받고, 의사와 물리치료사에게 치료를 받으시기 바랍니다.
-</div>
-""", unsafe_allow_html=True)
-
 # 입력 폼
 st.subheader("📋 증상 입력")
 
@@ -78,12 +71,6 @@ with col2:
     occupation = st.text_input("💼 직업 / 주요 활동 (선택)", placeholder="예: 사무직, 간호사, 학생, 택배기사...")
     aggravating = st.text_input("📈 악화 요인 (선택)", placeholder="예: 오래 앉아있을 때, 스트레스 받을 때...")
     relieving = st.text_input("📉 완화 요인 (선택)", placeholder="예: 온찜질 후, 누웠을 때...")
-
-st.markdown("""
-<div class="warning-card">
-⚠️ <strong>주의:</strong> 이 처방은 교육·참고 목적이며 의학적 진단·처방을 대체하지 않습니다.
-</div>
-""", unsafe_allow_html=True)
 
 if st.button("🔍 AI 맞춤 루틴 생성하기", type="primary", use_container_width=True):
     if not symptoms.strip():
@@ -116,36 +103,26 @@ if st.button("🔍 AI 맞춤 루틴 생성하기", type="primary", use_container
                     st.markdown(data["prescription"])
 
                     # 전문가 상담 고지
-                    st.markdown("""
-                    <div class="expert-card">
-                    🩺 <strong>전문가 상담을 권장합니다</strong><br>
-                    위 내용은 참고용 정보입니다. 정확한 진단과 치료를 위해
-                    <strong>물리치료사, 재활의학과, 정형외과, 마취통증의학과</strong> 전문의를 방문하시기 바랍니다.<br>
-                    특히 통증이 2주 이상 지속되거나, 팔다리 저림·마비, 발열이 동반되면 즉시 병원을 방문하세요.
-                    </div>
-                    """, unsafe_allow_html=True)
-
                     # 출처 (접기)
                     with st.expander("📚 참고 자료 출처"):
-                        st.markdown("""
-**전문 서적**
-- Travell & Simons' Myofascial Pain and Dysfunction: The Trigger Point Manual (1999)
-- Hoppenfeld, S. Physical Examination of the Spine and Extremities (1976)
-- Clay & Pounds. Basic Clinical Massage Therapy, 2nd Ed. LWW (2008)
-
-**임상 가이드라인**
-- APTA Neck Pain Clinical Practice Guidelines 2017
-- Canadian Physiotherapy Association (CPA) Guidelines
-- IASP Pain Management Standards 2024
-
-**PubMed 논문 (2023-2025)**
-- Dua & Chang. Myofascial Pain Syndrome. StatPearls NIH 2025
-- Simati et al. Multimodal Physiotherapy for Cervical MPS. Cureus 2025
-- Anwar et al. Treatment of MPS. Medicine 2024
-- He et al. Therapeutic Physical Modalities on MPS. BMC Musculoskeletal Disorders 2023
-- Needling trigger points for MPS: Meta-analysis. ScienceDirect 2025
-- Bau et al. Myofascial Treatment for Microcirculation. Diagnostics 2021
-                        """)
+                        st.write("**전문 서적**")
+                        st.write("- Travell & Simons' Myofascial Pain and Dysfunction: The Trigger Point Manual (1999)")
+                        st.write("- Hoppenfeld, S. Physical Examination of the Spine and Extremities (1976)")
+                        st.write("- Clay & Pounds. Basic Clinical Massage Therapy, 2nd Ed. LWW (2008)")
+                        st.write("")
+                        st.write("**임상 가이드라인**")
+                        st.write("- APTA Neck Pain Clinical Practice Guidelines 2017")
+                        st.write("- Canadian Physiotherapy Association (CPA) Guidelines")
+                        st.write("- IASP Pain Management Standards 2024")
+                        st.write("")
+                        st.write("**PubMed 논문 (2023-2025)**")
+                        st.write("- Dua & Chang. Myofascial Pain Syndrome. StatPearls NIH 2025")
+                        st.write("- Simati et al. Multimodal Physiotherapy for Cervical MPS. Cureus 2025")
+                        st.write("- Anwar et al. Treatment of MPS. Medicine 2024")
+                        st.write("- He et al. Therapeutic Physical Modalities on MPS. BMC Musculoskeletal Disorders 2023")
+                        st.write("- Needling trigger points for MPS: Meta-analysis. ScienceDirect 2025")
+                        st.write("- Bau et al. Myofascial Treatment for Microcirculation. Diagnostics 2021")
+                        st.write("- Frontiers in Physiology. Myofascial Release Mechanisms 2026")
 
                     # 다운로드
                     full_text = f"""MPS AI 처방 결과
