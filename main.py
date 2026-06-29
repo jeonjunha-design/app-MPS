@@ -137,7 +137,8 @@ def build_prompt(req: SymptomRequest, context: str) -> str:
     if req.occupation:  extras += f"\n- 직업: {req.occupation}"
     if req.aggravating: extras += f"\n- 악화 요인: {req.aggravating}"
     if req.relieving:   extras += f"\n- 완화 요인: {req.relieving}"
-    return f"""당신은 근막통증증후군(MPS) 전문 물리치료사입니다. 반드시 한국어로만 답변하세요. You MUST respond ONLY in Korean. English is absolutely forbidden.
+    return f"""[CRITICAL INSTRUCTION: You MUST write ALL responses in Korean language only. Do NOT use English at all. 한국어로만 작성하세요.]
+당신은 근막통증증후군(MPS) 전문 물리치료사입니다. 반드시 한국어로만 답변하세요. You MUST respond ONLY in Korean. English is absolutely forbidden.
 아래 [전문 지식]을 반드시 참고하여 처방을 완벽한 한국어로 작성하세요.
 
 [규칙]
@@ -188,7 +189,8 @@ def call_ollama(prompt: str) -> str:
         r = requests.post(
             OLLAMA_URL,
             json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False,
-                  "options": {"num_predict": 1500, "temperature": 0.3}},
+                  "system": "당신은 한국어만 사용하는 MPS 전문 물리치료사입니다. 반드시 한국어로만 답변하세요. Never use English. Always respond in Korean only.",
+                  "options": {"num_predict": 2000, "temperature": 0.2}},
             timeout=180
         )
         r.raise_for_status()
