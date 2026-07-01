@@ -137,60 +137,38 @@ def build_prompt(req: SymptomRequest, context: str) -> str:
     if req.occupation:  extras += f"\n- 직업: {req.occupation}"
     if req.aggravating: extras += f"\n- 악화 요인: {req.aggravating}"
     if req.relieving:   extras += f"\n- 완화 요인: {req.relieving}"
-    return f"""[CRITICAL INSTRUCTION: You MUST write ALL responses in Korean language only. Do NOT use English at all. 한국어로만 작성하세요.]
-당신은 근막통증증후군(MPS) 전문 물리치료사입니다. 반드시 한국어로만 답변하세요. You MUST respond ONLY in Korean. English is absolutely forbidden.
-아래 [전문 지식]을 반드시 참고하여 처방을 완벽한 한국어로 작성하세요.
+    return f"""당신은 한국어로만 답변하는 근막통증증후군(MPS) 전문 물리치료사입니다.
 
-[규칙]
-1. 모든 내용을 완벽한 한국어로만 작성하세요. English is absolutely forbidden.
-2. 환자가 입력한 통증 부위({req.body_part})에만 관련된 운동과 스트레칭을 처방하세요. 목/어깨 통증에 클램쉘, 힙 쓰러스트, 비복근 스트레칭 같은 하지 운동은 절대 포함하지 마세요.
-3. 각 운동과 스트레칭은 구체적인 자세, 동작, 횟수, 유지시간을 각각 다르게 상세히 명시하세요.
-4. 같은 유의사항(예: "온찜질 15분을 수행하여")을 반복해서 쓰지 마세요. 각 항목마다 고유한 설명을 작성하세요.
-5. 전문 지식에 근거한 처방만 제시하고 의학적 진단을 내리지 마세요.
-6. 처방은 반드시 아래 6개 항목 순서로 작성하세요. 병원 방문 기준은 절대 포함하지 마세요.
-7. W-I-T-Y 운동: 엎드려서 W(팔꿈치 구부려 옆으로), I(팔 위로 쭉), T(팔 양쪽 수평), Y(팔 위 45도) 각 자세로 팔을 드는 동작임을 명시하세요.
-8. 도수치료 권고 항목에는 구체적인 기법명(Maitland Grade, MET PIR, 허혈성 압박, IASTM)과 적용 부위, 간단한 효과를 포함하세요.
-
-[전문 지식]
+[참고 지식]
 {context}
 
-[환자 정보]
-- 통증 부위: {req.body_part} | 강도: {req.pain_level}/10 | 기간: {req.duration}
-- 증상: {req.symptoms}{extras}
+[환자]
+통증 부위: {req.body_part} | 강도: {req.pain_level}/10 | 기간: {req.duration} | 증상: {req.symptoms}{extras}
 
-[기간별 처방 원칙 - 반드시 준수]
-- 오늘 발생 / 2~3일: 급성기 처방 (냉찜질 우선, 가벼운 가동범위 운동)
-- 1주일 / 2~4주: 아급성기 처방 (온찜질, 스트레칭 중심, 가벼운 강화 운동 시작)
-- 1~3개월: 만성기 처방 (스트레칭 + 강화 운동 + 도수치료)
-- 3개월 이상(만성): 만성기 처방 (복합 운동 + 도수치료 + 자세 교정 집중)
-현재 환자의 기간은 {req.duration}이므로 해당 기간에 맞는 처방만 작성하세요.
-다른 기간의 처방 내용은 절대 포함하지 마세요.
+[지시사항]
+- 반드시 한국어로만 작성하세요
+- {req.body_part} 부위에 맞는 처방만 작성하세요
+- 기간({req.duration})에 맞게: 오늘/2~3일=냉찜질+가벼운운동, 1주~4주=온찜질+스트레칭, 1개월이상=복합치료
+- 각 운동과 스트레칭마다 자세, 동작, 횟수, 세트를 구체적으로 명시하세요
+- 도수치료 권고 시 Maitland/MET PIR/허혈성 압박/IASTM 기법명을 포함하세요
+
+아래 6개 항목으로 처방을 작성하세요:
 
 ## 🔍 증상 분석
-(통증 부위, 강도, 기간, 직업 등 종합 분석. 연관 부위가 있다면 원인 설명 포함)
-
-## 🔥 즉시 적용 (오늘부터)
-(온찜질, 즉시 시행 가능한 스트레칭 1~2가지, 자세 교정 1가지)
-
+## 🔥 즉시 적용
 ## 🧘 스트레칭 프로그램
-(3~5가지, 각각 자세·동작·유지시간·횟수·주의사항 상세 기술)
-
 ## 💪 운동 치료
-(3~5가지, 각각 자세·동작·횟수·세트 상세 기술. W-I-T-Y는 엎드려서 각 알파벳 모양으로 팔 드는 동작 명시)
+## 🏥 도수치료 권고
+## 🏠 자세 교정 & 예방
+"""
 
-## 🏥 물리치료 / 도수치료 권고
-(구체적 기법명과 적용 부위 명시. 예: Maitland Grade III PA glide C4-5, MET PIR 상부 승모근, 허혈성 압박 견갑거근 TrP, IASTM 경추 근막)
-
-## 🏠 자세 교정 & 일상 예방
-(3~5가지 구체적 생활 교정 방법)"""
 
 def call_ollama(prompt: str) -> str:
     try:
         r = requests.post(
             OLLAMA_URL,
             json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False,
-                  "system": "당신은 한국어만 사용하는 MPS 전문 물리치료사입니다. 반드시 한국어로만 답변하세요. Never use English. Always respond in Korean only.",
-                  "options": {"num_predict": 2000, "temperature": 0.2}},
+                  "options": {"num_predict": 3000, "temperature": 0.4}},
             timeout=180
         )
         r.raise_for_status()
@@ -284,3 +262,245 @@ async def sync_from_cloud():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+
+# ==================== 차트 저장/불러오기 ====================
+from fastapi import Body
+from typing import Optional
+
+class ChartData(BaseModel):
+    chart_no: str = ""
+    pt_name: str
+    pt_age: int = 0
+    pt_gender: str = ""
+    pt_date: str = ""
+    pt_session: int = 1
+    pt_therapist: str = ""
+    pt_dx: str = ""
+    chart_content: str  # 전체 차트 텍스트
+    soap_json: dict = {}  # 구조화된 SOAP 데이터
+
+@app.post("/chart/save")
+@app.post("/chart/save")
+async def save_chart(data: ChartData):
+    now_str = datetime.now(timezone.utc).isoformat()
+    results = {}
+
+    # 1. JSON 파일 저장
+    try:
+        patients_dir = Path(__file__).parent / "patients"
+        patients_dir.mkdir(exist_ok=True)
+        pt_key = data.pt_name.strip().replace(" ", "_") or data.chart_no or "unknown"
+        json_path = patients_dir / f"{pt_key}.json"
+
+        # 기존 데이터 로드
+        if json_path.exists():
+            with open(json_path, 'r', encoding='utf-8') as f:
+                pt_data = json.load(f)
+        else:
+            pt_data = {
+                "pt_name": data.pt_name,
+                "chart_no": data.chart_no,
+                "sessions": []
+            }
+
+        # 같은 날짜+회차 있으면 업데이트, 없으면 추가
+        session_key = f"{data.pt_date}_{data.pt_session:03d}"
+        existing_idx = next((i for i, s in enumerate(pt_data["sessions"])
+                             if s.get("session_key") == session_key), None)
+        session_record = {
+            "session_key": session_key,
+            "chart_no": data.chart_no,
+            "pt_date": data.pt_date,
+            "pt_session": data.pt_session,
+            "pt_therapist": data.pt_therapist,
+            "pt_dx": data.pt_dx,
+            "pt_age": data.pt_age,
+            "pt_gender": data.pt_gender,
+            "chart_content": data.chart_content,
+            "soap_json": data.soap_json,
+            "saved_at": now_str
+        }
+        if existing_idx is not None:
+            pt_data["sessions"][existing_idx] = session_record
+        else:
+            pt_data["sessions"].append(session_record)
+
+        # 날짜 내림차순 정렬
+        pt_data["sessions"].sort(key=lambda x: x["session_key"], reverse=True)
+        pt_data["last_visit"] = data.pt_date
+        pt_data["pt_dx"] = data.pt_dx
+
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(pt_data, f, ensure_ascii=False, indent=2)
+
+        results["json"] = f"✅ 로컬 저장 완료 ({json_path.name})"
+    except Exception as e:
+        results["json"] = f"❌ 로컬 저장 실패: {e}"
+
+    # 2. Firestore 저장
+    try:
+        db = get_firestore()
+        pt_key = data.pt_name.strip().replace(" ", "_") or data.chart_no or "unknown"
+        doc_id = f"{data.pt_date}_{data.pt_session:03d}"
+        db.collection("pt_charts").document(pt_key).collection("sessions").document(doc_id).set({
+            "chart_no": data.chart_no,
+            "pt_name": data.pt_name,
+            "pt_age": data.pt_age,
+            "pt_gender": data.pt_gender,
+            "pt_date": data.pt_date,
+            "pt_session": data.pt_session,
+            "pt_therapist": data.pt_therapist,
+            "pt_dx": data.pt_dx,
+            "chart_content": data.chart_content,
+            "soap_json": data.soap_json,
+            "saved_at": datetime.now(timezone.utc),
+        })
+        db.collection("pt_charts").document(pt_key).set({
+            "pt_name": data.pt_name,
+            "chart_no": data.chart_no,
+            "pt_age": data.pt_age,
+            "pt_gender": data.pt_gender,
+            "pt_dx": data.pt_dx,
+            "last_visit": data.pt_date,
+            "updated_at": datetime.now(timezone.utc),
+        }, merge=True)
+        results["firestore"] = "✅ 클라우드 저장 완료"
+    except Exception as e:
+        results["firestore"] = f"❌ 클라우드 저장 실패: {e}"
+
+    return {"status": "완료", "results": results}
+
+@app.get("/chart/load/{pt_key}")
+async def load_chart(pt_key: str):
+    # JSON 파일에서 먼저 로드
+    try:
+        patients_dir = Path(__file__).parent / "patients"
+        json_path = patients_dir / f"{pt_key}.json"
+        if not json_path.exists():
+            # pt_key에 공백이 있을 수 있으므로 대체 시도
+            alt_key = pt_key.replace("_", " ")
+            json_path = patients_dir / f"{alt_key}.json"
+        if json_path.exists():
+            with open(json_path, 'r', encoding='utf-8') as f:
+                pt_data = json.load(f)
+            sessions = []
+            for s in pt_data.get("sessions", []):
+                s["pt_name"] = pt_data.get("pt_name", pt_key)
+                s["source"] = "local"
+                sessions.append(s)
+            if sessions:
+                return {"status": "ok", "sessions": sessions,
+                        "count": len(sessions), "source": "json"}
+    except Exception as e:
+        pass
+
+    # SQLite 실패 시 Firestore에서 로드
+    try:
+        db = get_firestore()
+        sessions_ref = db.collection("pt_charts").document(pt_key).collection("sessions")
+        sessions_docs = sessions_ref.order_by("pt_date", direction="DESCENDING").stream()
+        sessions = []
+        for s in sessions_docs:
+            d = s.to_dict()
+            d["doc_id"] = s.id
+            d["source"] = "cloud"
+            sessions.append(d)
+        return {"status": "ok", "sessions": sessions, "count": len(sessions), "source": "firestore"}
+    except Exception as e:
+        raise HTTPException(500, str(e))
+
+@app.get("/chart/search")
+async def search_chart(q: str):
+    results = []
+    # JSON 파일 검색
+    try:
+        patients_dir = Path(__file__).parent / "patients"
+        if patients_dir.exists():
+            for json_file in sorted(patients_dir.glob("*.json"),
+                                    key=lambda f: f.stat().st_mtime, reverse=True):
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    pt_data = json.load(f)
+                pt_name = pt_data.get("pt_name", "")
+                chart_no = pt_data.get("chart_no", "")
+                if q.lower() in pt_name.lower() or q in chart_no:
+                    results.append({
+                        "pt_name": pt_name,
+                        "chart_no": chart_no,
+                        "pt_dx": pt_data.get("pt_dx", ""),
+                        "last_visit": pt_data.get("last_visit", ""),
+                        "pt_key": json_file.stem,
+                        "source": "local"
+                    })
+    except Exception as e:
+        pass
+
+    # Firestore 검색 (SQLite 결과 없을 때)
+    if not results:
+        try:
+            db = get_firestore()
+            docs = db.collection("pt_charts").stream()
+            for doc in docs:
+                d = doc.to_dict()
+                if q.lower() in d.get("pt_name","").lower() or q in d.get("chart_no",""):
+                    d["pt_key"] = doc.id
+                    d["source"] = "cloud"
+                    results.append(d)
+        except:
+            pass
+
+    return {"status": "ok", "results": results}
+
+@app.get("/chart/list")
+async def list_charts():
+    results = []
+    try:
+        patients_dir = Path(__file__).parent / "patients"
+        if patients_dir.exists():
+            for json_file in sorted(patients_dir.glob("*.json"),
+                                    key=lambda f: f.stat().st_mtime, reverse=True)[:50]:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    pt_data = json.load(f)
+                results.append({
+                    "pt_name": pt_data.get("pt_name", ""),
+                    "chart_no": pt_data.get("chart_no", ""),
+                    "pt_dx": pt_data.get("pt_dx", ""),
+                    "last_visit": pt_data.get("last_visit", ""),
+                    "visits": len(pt_data.get("sessions", [])),
+                    "pt_key": json_file.stem,
+                    "source": "local"
+                })
+    except:
+        pass
+    return {"status": "ok", "results": results}
+
+class DeleteChart(BaseModel):
+    pt_key: str
+    session_key: str
+
+@app.delete("/chart/delete")
+async def delete_chart(data: DeleteChart):
+    results = {}
+    # JSON 파일에서 삭제
+    try:
+        patients_dir = Path(__file__).parent / "patients"
+        json_path = patients_dir / f"{data.pt_key}.json"
+        if json_path.exists():
+            with open(json_path, 'r', encoding='utf-8') as f:
+                pt_data = json.load(f)
+            pt_data["sessions"] = [s for s in pt_data["sessions"]
+                                   if s.get("session_key") != data.session_key]
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(pt_data, f, ensure_ascii=False, indent=2)
+            results["json"] = "✅ 로컬 삭제 완료"
+    except Exception as e:
+        results["json"] = f"❌ {e}"
+
+    # Firestore에서 삭제
+    try:
+        db = get_firestore()
+        db.collection("pt_charts").document(data.pt_key).collection("sessions").document(data.session_key).delete()
+        results["firestore"] = "✅ 클라우드 삭제 완료"
+    except Exception as e:
+        results["firestore"] = f"❌ {e}"
+
+    return {"status": "완료", "results": results}
