@@ -5,6 +5,7 @@ main.py — MPS AI 처방 FastAPI 서버
 """
 
 import os
+import json
 import requests
 from pathlib import Path
 from datetime import datetime, timezone
@@ -279,7 +280,17 @@ class ChartData(BaseModel):
     chart_content: str  # 전체 차트 텍스트
     soap_json: dict = {}  # 구조화된 SOAP 데이터
 
-@app.post("/chart/save")
+def make_pt_key(pt_name: str, chart_no: str) -> str:
+    """환자 식별 키 = 이름 + 차트번호.
+    이름·차트번호가 모두 같으면 같은 환자(같은 파일)로 취급하고,
+    차트번호가 다르면 동명이인이라도 다른 환자로 분리한다."""
+    name = (pt_name or "").strip().replace(" ", "_")
+    cn = (chart_no or "").strip().replace(" ", "_").replace("/", "_")
+    if name and cn:
+        return f"{name}_{cn}"
+    return name or cn or "unknown"
+
+
 @app.post("/chart/save")
 async def save_chart(data: ChartData):
     now_str = datetime.now(timezone.utc).isoformat()
@@ -289,7 +300,7 @@ async def save_chart(data: ChartData):
     try:
         patients_dir = Path(__file__).parent / "patients"
         patients_dir.mkdir(exist_ok=True)
-        pt_key = data.pt_name.strip().replace(" ", "_") or data.chart_no or "unknown"
+        pt_key = make_pt_key(data.pt_name, data.chart_no)
         json_path = patients_dir / f"{pt_key}.json"
 
         # 기존 데이터 로드
@@ -327,6 +338,8 @@ async def save_chart(data: ChartData):
 
         # 날짜 내림차순 정렬
         pt_data["sessions"].sort(key=lambda x: x["session_key"], reverse=True)
+        pt_data["pt_name"] = data.pt_name
+        pt_data["chart_no"] = data.chart_no
         pt_data["last_visit"] = data.pt_date
         pt_data["pt_dx"] = data.pt_dx
 
@@ -340,7 +353,7 @@ async def save_chart(data: ChartData):
     # 2. Firestore 저장
     try:
         db = get_firestore()
-        pt_key = data.pt_name.strip().replace(" ", "_") or data.chart_no or "unknown"
+        pt_key = make_pt_key(data.pt_name, data.chart_no)
         doc_id = f"{data.pt_date}_{data.pt_session:03d}"
         db.collection("pt_charts").document(pt_key).collection("sessions").document(doc_id).set({
             "chart_no": data.chart_no,
@@ -380,7 +393,7 @@ async def load_chart(pt_key: str):
             # pt_key에 공백이 있을 수 있으므로 대체 시도
             alt_key = pt_key.replace("_", " ")
             json_path = patients_dir / f"{alt_key}.json"
-        if json_path.exists():
+        if json_path.exists() and json_path.stat().st_size > 0:
             with open(json_path, 'r', encoding='utf-8') as f:
                 pt_data = json.load(f)
             sessions = []
@@ -418,11 +431,17 @@ async def search_chart(q: str):
         if patients_dir.exists():
             for json_file in sorted(patients_dir.glob("*.json"),
                                     key=lambda f: f.stat().st_mtime, reverse=True):
-                with open(json_file, 'r', encoding='utf-8') as f:
-                    pt_data = json.load(f)
+                # 빈/손상 파일은 개별적으로 건너뛴다 (검색 전체가 멈추지 않도록)
+                try:
+                    if json_file.stat().st_size == 0:
+                        continue
+                    with open(json_file, 'r', encoding='utf-8') as f:
+                        pt_data = json.load(f)
+                except Exception:
+                    continue
                 pt_name = pt_data.get("pt_name", "")
                 chart_no = pt_data.get("chart_no", "")
-                if q.lower() in pt_name.lower() or q in chart_no:
+                if q.lower() in pt_name.lower() or (q and q in chart_no):
                     results.append({
                         "pt_name": pt_name,
                         "chart_no": chart_no,
