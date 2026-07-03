@@ -3365,3 +3365,128 @@ T1: 손가락외전(내재근), 상완내측 감각
 8. 관련 부위 검사
   5) 제10 뇌신경 관련
   기타 관련부위
+
+[섹션50: Hoppenfeld 8장 족부와 족관절 검진 - 시진·골성촉진]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제8장, pp.238~247
+
+== 족부와 족관절 해부 개요 ==
+족관절(ankle joint) = 거퇴관절(talocrural joint):
+- 구성: 경골(tibia) + 비골(fibula) + 거골(talus)
+- 경비골 결합(tibiofibular syndesmosis): 원위 경비골 연결
+- 내과(medial malleolus): 경골 원위 내측 돌기 → 삼각인대 기시
+- 외과(lateral malleolus): 비골 원위부 → 외측인대 기시. 내과보다 1cm 더 원위·후방
+
+족근골(tarsal bones) 7개:
+거골(talus) - 종골(calcaneus) - 주상골(navicular) - 입방골(cuboid)
+- 내측설상골(medial cuneiform) - 중간설상골(intermediate cuneiform) - 외측설상골(lateral cuneiform)
+
+== 1. 시진 (Inspection) ==
+[족부 변형]
+- 내반족(clubfoot/talipes equinovarus): 선천성 기형. 족부 내반·내전·첨족
+- 요족(pes cavus): 종축 아치 과도 증가. 메타타르살 두부 압통
+- 편평족(pes planus/flatfoot): 내측 종축 아치 소실
+  → 경직성(rigid): 체중부하 시도 아치 없음
+  → 유연성(flexible): 비체중부하 시 아치 회복
+- 무지외반증(hallux valgus): 제1중족족지관절(MP joint) 외반. 건막류(bunion) 형성
+- 경직성 무지(hallux rigidus): 제1MP 관절 강직
+- 족지 중복(overlapping toe): 소지 중복
+
+[족부 관찰 포인트]
+- 종골 정렬(calcaneus alignment): 후방에서 관찰
+  → 정상: 수직
+  → 외반(valgus/pronation): 편평족 연관
+  → 내반(varus/supination): 요족 연관
+- 내측 종축 아치(medial longitudinal arch): 정상 시 내과 하방에 공간
+- 족지 자세: 갈퀴족지(claw toe), 망치족지(hammer toe), 첨족(equinus)
+- 유각기(swing phase) 관찰: 전경골근 약화 시 족하수(foot drop)
+- 족저근막(plantar fascia): 긴장 시 종골 내측 압통 → 족저근막염
+
+[종축 아치와 정맥 환류]
+- 편평족(pes planus): 정맥환류(venous return) 저하, 족부 피로 증가
+- 골반 폐쇄(pelvic obstruction): 하지 부종 원인
+
+== 2. 골성 촉진 (Bony Palpation) ==
+
+[내측면 (Medial Aspect)]
+1) 내과(medial malleolus):
+- 경골 원위 내측 돌기. 피하 위치
+- 삼각인대(deltoid ligament) 기시부
+- 골절 시: 외반 염좌 → 내과 견열골절
+
+2) 제1중족족지관절(1st metatarsophalangeal joint):
+- 무지외반증(hallux valgus) 시 내측 돌출 → 건막류(bunion) 형성
+- 통풍(gout): 제1MP 관절 발적·종창·극심한 통증
+
+3) 제1중족골두(head of 1st metatarsal bone):
+- ball of foot 내측 부분
+- 종자골(sesamoid): 제1중족골두 저면에 2개 존재
+
+4) 거골두(talar head):
+- 내과 전방 약 2.5cm
+- 무혈성 괴사(avascular necrosis) 호발 부위
+- 거골 활주운동(gliding movement): 외번 시 전방 이동 확인
+
+5) 주상골결절(navicular tubercle):
+- 내과 전방·하방 약 2.5cm
+- 후경골근(tibialis posterior) 정지부
+- 부주상골(accessory navicular): 별도 골화 → 압통
+- 주상골 골절 시 압통
+
+6) 내측설상골(medial cuneiform):
+- 제1중족골과 관절(1st metatarsocuneiform joint)
+- 단순 활주관절(simple plane joint)
+
+7) 재거돌기(sustentaculum tali):
+- 종골 내측 돌기. 내과 하방 약 1cm
+- 장무지굴근건(FHL) 통과
+- 정렬(alignment) 확인: 재거돌기-거골 축으로 족부 정렬 평가
+- spring 인대(plantar calcaneonavicular ligament) 기시
+
+8) 내측 거골결절(medial tubercle of talus):
+- 내과 후방. 후거비인대(posterior talofibular lig.)의 내측 부착
+
+[외측면 (Lateral Aspect)]
+1) 제5중족골 & 제5중족족지관절:
+- 외측 족부. 소지(5th toe) 기저
+- 제5중족골 기저부(base of 5th metatarsal): 비골단근(peroneus brevis) 정지
+  → 내번 염좌 시 견열골절 호발!
+
+2) 종골(calcaneus):
+- 족부 최대골. 발뒤꿈치
+- 비골근구(peroneal groove): 비골근건 통과
+- 종골 결절(calcaneal tuberosity): 아킬레스건 부착
+
+3) 비골결절(peroneal tubercle):
+- 외과 하방 0.6cm
+- 장비골근건(peroneus longus tendon): 비골결절 후방 통과
+- 단비골근건(peroneus brevis): 비골결절 전방 통과
+
+4) 외과(lateral malleolus):
+- 비골 원위부. 내과보다 1cm 더 원위·후방
+- 전거비인대(ATFL) 기시: 외측 인대 중 가장 약함 → 내번 염좌 시 가장 먼저 손상
+- 종비인대(CFL) 기시
+- 후거비인대(PTFL) 기시
+
+5) 외측 내과(lateral malleolus) 주변:
+- 내번 염좌(inversion type of sprain): 가장 흔한 족관절 손상
+  → ATFL → CFL → PTFL 순으로 손상
+- 족관절와(ankle mortise): 경골·비골·거골이 이루는 관절 공간
+
+[배측 (Dorsal)]
+족근동(sinus tarsi area):
+- 외과 전방 함몰부위
+- 거골과 종골 사이 공간
+- 압통 → 거골하관절(subtalar joint) 염좌, 족근동 증후군
+
+경비골 결합(tibiofibular syndesmosis):
+- 원위 경비골 연결 인대 복합체
+- 높은 발목 염좌(high ankle sprain): 경비골 결합 손상
+- 압통: 경비골 결합 부위 직접 압박
+
+== MPS 임상 적용 - 족부·족관절 ==
+- 비복근(gastrocnemius): TrP → 종아리·발뒤꿈치 통증. 야간 경련
+- 가자미근(soleus): TrP → 발뒤꿈치·족저부 통증. 아킬레스건염 유사
+- 전경골근(tibialis anterior): TrP → 족배부·무지 통증. 야간 통증
+- 후경골근(tibialis posterior): TrP → 아킬레스건·족저부 통증
+- 장비골근(peroneus longus): TrP → 외과·외측 족부 통증
+- 족저근막(plantar fascia): TrP → 아침 첫 걸음 통증. 종골 내측 압통
