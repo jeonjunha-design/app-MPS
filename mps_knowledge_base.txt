@@ -3737,3 +3737,128 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 내번 제한: 비골근군 단축 또는 외측 인대 손상
 - 외번 제한: 후경골근 단축 또는 삼각인대 손상
 - 거골하관절 제한: 족저근막 TrP, 내재근 TrP 연관
+
+[섹션53: Hoppenfeld 8장 족부와 족관절 - ROM(족지)·신경학적검사·특수검사·완결]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제8장, pp.270~281
+
+== ROM 계속 - 전족부 및 족지 ==
+
+[전족부 (Forefoot)]
+전족부 내전(forefoot adduction):
+- 중족부 고정 후 전족부를 내측으로 이동
+- 선천성 내족지(metatarsus varus/adductus) 평가
+
+전족부 외전(forefoot adduction correction test):
+- 외측으로 교정 가능한지 확인 → 유연성 판단
+- 족부 내전(adducted foot): 전족부 내전 + 거골하관절 내번
+
+회내(pronation)·회외(supination):
+- 회내: 외번+외전+배측굴곡 복합운동
+- 회외: 내번+내전+저측굴곡 복합운동
+
+족관절 배굴 교정 검사(ankle dorsiflexion test):
+- 무릎 신전 상태에서 배굴 측정 → 비복근 경직성
+- 무릎 굴곡 상태에서 배굴 측정 → 가자미근 경직성
+- 정상: 무릎 신전 시 10도 이상 배굴 가능
+- 비복근 단축: 무릎 신전 시 배굴 제한 (-5~0도)
+- 가자미근 단축: 무릎 굴곡 시에도 배굴 제한
+
+[제1중족족지관절 (1st MP Joint)]
+- 굴곡(flexion): -70~90도
+- 신전(extension): -45도
+- 무지 강직(hallux rigidus): 신전 제한. 보행 시 push-off 불가
+
+[비복근·가자미근 경직성 검사]
+- 비복근(gastrocnemius) 경직(stiffness): 무릎 신전 시 배굴 제한
+- 가자미근(soleus) 경직: 무릎 굴곡해도 배굴 제한
+- 아킬레스건 구축 → 첨족(equinus) 변형
+
+== 6. 신경학적 검사 (Neurologic Examination) ==
+
+[근력검사 - 주동근/주신경]
+① 배측굴곡(dorsiflexion) - 전경골근(tibialis anterior):
+- 주신경: 심비골신경(deep peroneal nerve) L4
+- 약화 시: 족하수(foot drop), 계상 보행
+
+② 족지 신전(toe extension) - 장지신전근(extensor digitorum longus):
+- 주신경: 심비골신경 L5
+- 장무지신전근(EHL): L5
+
+③ 외번(eversion) - 비골근(peroneus longus & brevis):
+- 주신경: 천비골신경(superficial peroneal nerve) L5
+- 약화 시: 내번 불안정
+
+④ 저측굴곡(plantarflexion) - 비복근+가자미근(gastrocnemius & soleus):
+- 주신경: 경골신경(tibial nerve) S1, S2
+- 발뒤꿈치 들기 검사: 정상 시 10~15회 반복 가능
+
+⑤ 무지 굴곡(hallux flexion) - 장무지굴근(flexor hallucis longus):
+- 주신경: 경골신경(tibial nerve) L5
+- 약화 시: 무지 파지력 감소
+
+⑥ 족지 굴곡(toe flexion) - 장지굴근(flexor digitorum longus):
+- 주신경: 경골신경(tibial nerve) L5, S1
+
+⑦ 내번(inversion) - 후경골근(tibialis posterior):
+- 주신경: 경골신경(tibial nerve) L5
+- 약화 시: 편평족 진행
+
+[반사검사 (Reflex Testing)]
+아킬레스건 반사(Achilles tendon reflex test):
+- 신경근: S1
+- 방법: 족관절 중립위에서 아킬레스건 타진
+- 감퇴/소실: S1 신경근 압박 (L5-S1 추간판탈출증)
+- 항진: 상위운동신경원 병변 (척수증)
+- 족저반사(Babinski): 족저부 외측을 긁음 → 무지 배굴=양성(상위 신경원)
+
+[감각검사 (Sensation Testing)]
+족부·족관절 피부절:
+- L4: 하퇴 내측, 내과, 족배 내측
+- L5: 하퇴 외측, 족배부, 1~2지 사이 (심비골신경)
+- S1: 족저부, 외과, 소지 (경골신경·외측족저신경)
+- S2: 하퇴 후면
+
+족부 신경 분포:
+- 심비골신경(deep peroneal nerve): 1~2지 사이 좁은 영역
+- 천비골신경(superficial peroneal nerve): 족배부 대부분 (L5)
+- 복재신경(saphenous nerve): 내과·족배 내측 (S) = 표재 감각
+- 비복신경(sural nerve): 외측 족배부·소지 외측 (S)
+- 내측족저신경(medial plantar nerve): 족저 내측 2/3, 1~3지 = L4-5
+- 외측족저신경(lateral plantar nerve): 족저 외측 1/3, 4~5지 = S1-2
+
+== 7. 특수검사 (Special Tests) ==
+
+[비복근·가자미근 검사]
+비복근 경직성 감별:
+- 슬관절 신전+배굴 → 비복근 경직 시 제한
+- 슬관절 굴곡+배굴 → 가자미근 경직 시에도 제한
+
+Homan's 징후 (Homan's Sign):
+- 방법: 무릎 신전, 족관절 강하게 배굴
+- 양성: 종아리 통증 → 심부정맥혈전증(DVT) 의심
+- 현재: 민감도·특이도 낮아 보조적으로만 사용
+- 혈전정맥염(thrombophlebitis): 하퇴 압통+종창+발적
+
+[관절 내 검사]
+one-joint muscle(단관절 근육):
+- 족관절 배굴 시 한 관절만 지나는 근육
+- 가자미근: 단관절 → 슬관절 굴곡해도 긴장 유지
+
+== 8. 관련 부위 검사 (Examination of Related Areas) ==
+- 슬관절: 비복근 기시부(대퇴과) 병변 → 족관절 저측굴곡 제한
+- 요추·천추: L4-5-S1 신경근 → 족부 방사통·감각이상
+  → L4: 내번 근력 약화, 내측 하퇴 감각이상
+  → L5: 배굴·무지 신전 약화, 족배부 감각이상
+  → S1: 저측굴곡·외번 약화, 족저부 감각이상, 아킬레스반사 감퇴
+- 혈관: 말초동맥질환(PAD) → 족배동맥·후경골동맥 박동 소실
+
+== 8장 족부·족관절 검진 완결 요약 ==
+검진 순서: 시진 → 골성촉진(내측/외측/배측/저측) → 연부조직촉진(삼각인대/외측인대/건/점액낭/족저근막) →
+ROM(족관절6방향+거골하관절+중족부+족지) → 신경학적검사(근력7종/아킬레스반사/감각) →
+특수검사(전방전위/내번스트레스/비복근경직/Homan's) → 관련부위
+
+족부 신경근 요약:
+- L4: 내번(후경골근), 내측 하퇴·내과 감각
+- L5: 배굴(전경골근), 무지신전, 족배부 감각
+- S1: 저측굴곡(비복근), 외번(비골근), 족저·외과 감각, 아킬레스반사
+- S2: 하퇴 후면 감각
