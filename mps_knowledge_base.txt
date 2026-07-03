@@ -3490,3 +3490,135 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 후경골근(tibialis posterior): TrP → 아킬레스건·족저부 통증
 - 장비골근(peroneus longus): TrP → 외과·외측 족부 통증
 - 족저근막(plantar fascia): TrP → 아침 첫 걸음 통증. 종골 내측 압통
+
+[섹션51: Hoppenfeld 8장 족부와 족관절 - 골성촉진(배측·저측)·연부조직촉진]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제8장, pp.248~259
+
+== 골성촉진 계속 ==
+
+[배측 (Dorsal)]
+거골 돔(dome of the talus):
+- 거퇴관절선(talocrural joint line): 내과-외과 사이 횡선
+- 내번(inversion) 시 거골 외측 노출 → 외측 거골 돔 촉진
+- 하퇴비골결합(inferior tibiofibular joint): 경비골 원위 결합. 높은 발목 염좌 시 압통
+- 거골하관절(subtalar joint): 거골-종골 사이. 내번/외번 담당
+
+[저측 (Plantar Surface)]
+종골 내측결절(medial tubercle of calcaneus):
+- 종골 저면 내측. 족저근막(plantar aponeurosis) 기시
+- 족저근막염(plantar fasciitis): 아침 첫 걸음 통증. 종골 내측결절 압통
+- heel spur(종골극): 장기간 족저근막 견인 → 종골 내측 골극 형성
+
+종자골(sesamoid bones):
+- 제1중족골두 저면에 2개 (내측·외측 종자골)
+- 장무지굴근건(flexor hallucis brevis tendon) 내 위치
+- 종자골염(sesamoiditis): 압통. 무지 저측 통증
+- 종자골 골절: 달리기 선수 호발
+
+중족골두(metatarsal head):
+- 5개 중족골 원위단
+- 중족통(metatarsalgia): 횡아치 저하 → 2~4번 중족골두 압통
+- 지간신경종(Morton's neuroma): 3~4번 중족골 사이 → 발가락 저림·작열통
+- 횡아치(transverse arch): 중족골두 연결. 저하 시 胼胝(굳은살/callosity) 형성
+
+== 3. 연부조직 촉진 (Soft Tissue Palpation) ==
+
+[내측면 (Medial Aspect)]
+1) 제1중족골두 내측 (1st metatarsal head):
+- 무지외반증(hallux valgus): 내측 돌출 → 건막류(bunion) = 점액낭 비후
+- lateral deviation: 무지 외측 편위. 내측 캡슐 신장
+- 제1중족족지관절 내측 압통
+
+2) 거골두(navicular tubercle):
+- 주상골(navicular tubercle): 후경골근 정지부 압통 → 후경골근건 건염
+- 무혈성 괴사: 거골두 압통·부종
+- 요족(pes cavus): 내측 종아치 과증가
+
+[내측 내과 후방 구조물 (Medial to Posterior Malleolus)]
+"Tom, Dick, an Harry": 내과 후방 구조물 기억법
+- T = Tibialis posterior (후경골근건): 가장 전방
+- D = flexor Digitorum longus (장지굴근건): 중간
+- A = posterior tibial Artery (후경골동맥): 내과 후방 박동 촉지
+- N = tibial Nerve (경골신경): 동맥 후방
+- H = flexor Hallucis longus (장무지굴근건): 가장 후방
+
+후경골건(tibialis posterior tendon):
+- 내과 후방 → 주상골결절 정지
+- 후경골건 파열: 편평족 악화, 내측 발목 통증
+- 스패스터시티(spasticity): 뇌졸중 후 첨내반족
+
+장무지굴근건(flexor hallucis longus tendon):
+- 재거돌기(sustentaculum tali) 하방 통과
+- 족관절 후방 충돌 시 압통
+
+후경골동맥(posterior tibial artery):
+- 내과 후방에서 박동 촉지
+- 족관절 후방 부위에서 촉진
+- 말초동맥질환(posterior tibial artery occlusion) 평가
+
+족근관 증후군(tarsal tunnel syndrome):
+- 굴근지대(flexor retinaculum) 아래 경골신경 압박
+- 족저부·발가락 저림·작열통
+- 티넬 징후: 내과 후방 두드림 → 족저부 방사통
+
+[배측 (Dorsum of the Foot)]
+족배동맥(dorsal pedal artery):
+- 족관절 전방 중앙. 장무지신전건 외측에서 박동 촉지
+- 말초동맥질환 평가 지점
+- 족배동맥 소실 → 혈관 폐색 의심
+
+전경골건(tibialis anterior tendon):
+- 족관절 전방 내측. 가장 내측 신전건
+- 내번(inversion) + 배측굴곡 시 두드러짐
+- 단열: 족하수(drop foot). 계상 보행(steppage gait)
+
+장무지신전건(extensor hallucis longus tendon):
+- 전경골건과 장지신전건 사이
+- 설상골 내측 위를 지남
+
+장지신전건(extensor digitorum longus tendon):
+- 족관절 전방 외측. 4개 건으로 분지
+
+전방구획증후군(anterior compartment syndrome):
+- 전방구획(anterior compartment): 전경골근, 장무지신전근, 장지신전근, 족배동맥
+- 급성: 외상 후 구획 내압 상승 → 혈관·신경 압박 → 응급
+- 증상: 족배부 통증, 발가락 신전 약화, 족배동맥 소실
+- 만성: 달리기 후 반복 통증 → 근막절개술
+
+[외측면 (Lateral)]
+외측 인대 복합체:
+① 전거비인대(ATFL: anterior talofibular ligament):
+- 외과 전방 → 거골 경부 연결
+- 족관절 내번 염좌 시 가장 먼저 손상 (가장 약한 인대)
+- 전방 전위검사(anterior drawer test) 양성 시 ATFL 손상
+
+② 종비인대(CFL: calcaneofibular ligament):
+- 외과 → 종골 외측면 연결
+- ATFL 손상 후 두 번째로 손상
+
+③ 후거비인대(PTFL: posterior talofibular ligament):
+- 외과 후방 → 거골 후방 연결
+- 3개 중 가장 강함. 심한 염좌 시 손상
+
+비골근건(peroneal tendons):
+- 장비골근건(peroneus longus tendon): 비골결절 후방 통과 → 제1중족골 기저부+내측설상골 저면 정지
+- 단비골근건(peroneus brevis tendon): 비골결절 전방 통과 → 제5중족골 경상돌기 정지
+- 비골근 건초염: 외과 후방 압통
+- 단비골근건 파열: 제5중족골 경상돌기 견열골절과 감별
+
+족근동(sinus tarsi):
+- 외과 전방 함몰부위
+- 족근동 증후군: 내번 염좌 후 지속 통증
+- 거골하관절 불안정성 연관
+
+소지 건막류(tailor's bunion):
+- 제5중족족지관절 외측 돌출
+- 재단사병(tailor's bunion): 제5중족골두 외측 압통·점액낭 비후
+
+== MPS 임상 보완 - 족부 연부조직 ==
+족관절 주변 건·인대 손상과 MPS 감별:
+- 후경골건염: 내측 발목 통증 → 가자미근 TrP와 감별
+- 비골근건염: 외측 발목 통증 → 장비골근 TrP와 감별
+- 족저근막염: 종골 내측 통증 → 가자미근·족저내재근 TrP와 감별
+- 전방구획증후군: 족배부 통증 → 전경골근 TrP와 감별
+- 족근관 증후군: 족저부 저림 → 후경골근 TrP와 감별
