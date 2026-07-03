@@ -3622,3 +3622,118 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 족저근막염: 종골 내측 통증 → 가자미근·족저내재근 TrP와 감별
 - 전방구획증후군: 족배부 통증 → 전경골근 TrP와 감별
 - 족근관 증후군: 족저부 저림 → 후경골근 TrP와 감별
+
+[섹션52: Hoppenfeld 8장 족부와 족관절 - 연부조직촉진(후방·족저)·특수검사·ROM]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제8장, pp.260~269
+
+== 연부조직 촉진 계속 ==
+
+[후방 (Posterior)]
+비골근건(peroneus longus and brevis tendon):
+- 외과 후방 비골근구(groove) 통과
+- 내번(inversion) 시 탄발음(snapping tendon): 비골근건 아탈구
+- 비골근건 건초염: 외과 후방 압통·종창
+
+후거비인대(posterior talofibular ligament):
+- 외과 후방 → 거골 후방 연결. 가장 강한 외측 인대
+
+종골 점액낭(calcaneal bursae):
+- 아킬레스건(Achilles tendon) = 비복근+가자미근 공통건
+  → 종골 후면 부착. 인체 최대 건
+  → 파열(rupture): 달리기 중 "뚝" 소리. Thompson test 양성
+  → 아킬레스건염: 건 내 압통. 달리기 선수 호발
+- (1) 종골상 점액낭(retrocalcaneal bursa): 아킬레스건과 종골 사이
+  → 하글룬드 변형(Haglund's deformity): 종골 후상방 돌출 → 점액낭 압박
+- (2) 종골 후방 점액낭(posterior calcaneal bursa): 아킬레스건과 피부 사이
+  → 신발 뒷부분 압박으로 점액낭염 발생
+
+족근동(sinus tarsi):
+- 외과 전방 함몰. 거골-종골 사이
+- 족근동 증후군: 내번 염좌 후 지속 통증. 불안정감
+
+[족저면 (Plantar Surface)]
+족저근막(plantar aponeurosis or plantar fascia):
+- 종골 내측결절 → 5개 중족골두 방사
+- 종축 아치(medial longitudinal arch) 지지
+- 족저근막염(plantar fasciitis): 종골 내측결절 압통. 아침 첫 걸음 통증
+  → 강한 밴드(strong band): 발뒤꿈치 착지(heel strike) 시 충격 흡수
+- Dupuytren's contracture(족저): 족저 섬유종증 → 족지 굴곡 구축
+
+지간신경종(Morton's neuroma):
+- 3~4번 중족골 사이 총족지신경(common digital nerve) 압박·비후
+- 증상: 발가락 저림·작열통. 중족골두 압박 시 재현
+- Mulder's sign: 중족골두 측방 압박 → 클릭+통증
+
+[족지 (Toes)]
+족지 변형:
+- 갈퀴족지(claw toe): MP 과신전+PIP·DIP 굴곡
+- 망치족지(hammer toe): MP 신전+PIP 굴곡+DIP 중립/신전
+  → 굳은살(corn): PIP 관절 배측에 형성
+- 경직성(hard corn): 중족골두 사이, 족지 배측
+- 연성(soft corn): 족지 사이
+- 내성발톱(ingrown toenail): 무지 외측 → 감염
+- DIP 관절: 정상 0도 신전, 과신전 시 이상
+
+== 4. 족관절 안정성 검사 (Tests for Ankle Joint Stability) ==
+
+[전방 전위 검사 (Anterior Drawer Test) - ATFL 손상]
+① 방법: 앙와위, 족관절 10~15도 저측굴곡(발목 편한 자세)
+   한 손으로 하퇴 원위부 고정, 다른 손으로 종골 잡고 전방으로 당김
+② 양성: 전방 전위 4~5mm 이상, 또는 반대쪽과 3mm 이상 차이
+③ 양성 시: ATFL 단독 손상 또는 ATFL+CFL 복합 손상
+④ 비교: 반드시 건측과 비교
+
+[내번 스트레스 검사 (Inversion Stress Test/Talar Tilt Test) - CFL 손상]
+① 방법: 족관절 중립위에서 종골을 내번(inversion)
+② 양성: 거골 경사(talar tilt) 증가 → X선으로 각도 측정
+③ 정상: 5도 이하. 10도 이상 → CFL 손상
+④ 전거비인대(ATFL)+종비인대(CFL) 동시 손상 시 더 큰 경사
+
+[전거비인대(ATFL) 촉진]
+- 외과 전방. 내번+저측굴곡 시 팽팽
+- positive anterior draw sign: 전방 전위 증가
+
+[종비인대(CFL) 촉진]
+- 외과 하방. 내번 시 팽팽
+- ankle mortise 검사: 발목 관절 공간 평가
+
+[경비골 결합 검사 (Syndesmosis Test)]
+- 방법: 경골·비골을 양쪽에서 압박(squeeze test)
+- 양성: 원위 경비골 결합부 통증 → 높은 발목 염좌
+
+== 5. 운동범위 (ROM, range of motion) ==
+
+[능동 운동범위 검사 (Active ROM)]
+① 배측굴곡(dorsiflexion): 20도
+② 저측굴곡(plantar flexion): 50도
+③ 내번(inversion): 35도 (거골하관절)
+④ 외번(eversion): 15도 (거골하관절)
+⑤ 족부 외전(foot abduction): 10도
+⑥ 족부 내전(foot adduction): 20도
+※ 능동검사 시 시각적 비교 후 각도 측정
+
+[수동 운동범위 검사 (Passive ROM)]
+(1) 족관절(ankle joint):
+- 배측굴곡: -20도 (중립위에서 20도 배굴)
+- 저측굴곡: 50도
+- 족관절와(ankle mortise): 경골·비골·거골 관절 공간
+
+(2) 거골하관절(subtalar joint):
+- 내번(inversion): -5도
+- 외번(eversion): 5도
+- 종종골관절(talocalcaneal joint) = 거골하관절
+- 거골하관절염(subtalar arthritis): 내번·외번 제한·통증
+- 경종골인대(calcaneofibular ligament) 평가
+
+(3) 중족부(midtarsal joint):
+- 외전(abduction): -20도
+- 내전(adduction): -20도
+- 거종골관절(talocalcaneal): 족부 회내·회외 중심
+- 족부 위치(position of congruence): 발 중립위에서 중족부 정렬
+
+== MPS 임상 적용 - 족관절 ROM 제한과 근육 ==
+- 배측굴곡 제한: 비복근·가자미근 단축 → TrP + 스트레칭
+- 저측굴곡 제한: 전경골근 단축
+- 내번 제한: 비골근군 단축 또는 외측 인대 손상
+- 외번 제한: 후경골근 단축 또는 삼각인대 손상
+- 거골하관절 제한: 족저근막 TrP, 내재근 TrP 연관
