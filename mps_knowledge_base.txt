@@ -3197,3 +3197,113 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 슬괵근군(hamstrings): TrP → 슬와부·대퇴 후면 통증. 앉기 불편
 - 비복근(gastrocnemius): TrP → 슬와부·종아리 통증. 야간 경련
 - 장경인대(IT band): TrP → 슬관절 외측 통증. 달리기 후 악화
+
+[섹션48: Hoppenfeld 7장 슬관절 신경학적검사·특수검사 완결]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제7장, pp.226~235
+
+== 5. 수동 운동범위 검사 (Passive ROM) ==
+
+[내·외회전 (Internal & External Rotation)]
+- 자세: 앙와위 또는 복와위, 슬관절 90도 굴곡
+- 내회전: 정상 10도
+- 외회전: 정상 10도
+- 슬관절 완전 신전 시: 회전 불가 (잠김 상태, locked knee)
+
+[나사회전운동 (Screw Home Motion)]
+- 슬관절이 완전 신전될 때 경골이 자동 외회전 → "lock the knee"
+- 내측 대퇴과(medial femoral condyle)가 외측보다 1.2cm 더 길어 발생
+- Helicoidal axis of Henke: 나사회전 축
+- 임상: 나사회전 소실 → 반월판·십자인대 손상 의심
+
+== 6. 신경학적 검사 (Neurologic Examination) ==
+
+[근력검사 - 주동근/주신경]
+(1) 슬관절 신전(extension):
+- 주동근: 대퇴사두근(quadriceps femoris)
+- 주신경: 대퇴신경(femoral nerve) L2, L3, L4
+- 검사: 앉은 자세에서 슬관절 신전. 저항은 하퇴 원위부에 적용
+- extension lag: 능동 신전 각도 < 수동 신전 각도 → 대퇴사두근 약화
+
+(2) 슬관절 굴곡(flexion):
+- 주동근: 슬괵근(hamstrings) — 대퇴이두근(biceps femoris), 반건양근(semitendinosus), 반막양근(semimembranosus)
+- 주신경: 좌골신경(sciatic nerve) L5, S1
+- 검사: 복와위에서 슬관절 굴곡. 저항은 족관절 근위부에 적용
+
+[반사검사 (Reflex Testing)]
+(3) 슬개건 반사(patellar tendon reflex):
+- 신경근: L2, L3, L4 (주로 L4)
+- 방법: 슬관절 약간 굴곡, 슬개건 직접 타진
+- 감퇴/소실: L4 신경근 압박
+- 항진: 상위운동신경원 병변
+
+[감각검사 (Sensation Test)]
+피부절 분포:
+- L2: 대퇴 전면 상부
+- L3: 대퇴 전면 하부, 슬관절 내측
+- L4: 하퇴 내측 (슬개건 하방, infrapatellar branch)
+- L5: 하퇴 외측, 족배부
+- S1: 족저부, 하퇴 후면
+- S2: 대퇴 후면, 슬와부
+- 대퇴 내측 피부신경(infrapatellar branch): 슬개골 하방 내측 감각
+
+== 7. 특수검사 (Special Tests) ==
+
+[반월판 검사]
+(1) 맥머레이 검사(McMurray Test):
+- 자세: 앙와위, 슬관절 최대 굴곡
+- 내측 반월판: 족부 외회전+외반력 하에 슬관절 신전
+  → 내측 관절선 통증·클릭(clicking) → 내측 반월판 손상
+- 외측 반월판: 족부 내회전+내반력 하에 슬관절 신전
+  → 외측 관절선 통증·클릭 → 외측 반월판 손상
+- 양성 기준: 촉지 가능한 클릭 + 통증
+- 후방 반월판(posterior meniscal) 손상에 더 민감
+
+(2) 아플리 압박 검사(Apley Compression Test):
+- 자세: 복와위, 슬관절 90도 굴곡
+- 방법: 족부에 하방 압박 가하며 내·외회전
+- 양성: 관절선 통증 → 반월판 손상
+- 감별: 견인(distraction) 시 통증 감소 → 반월판, 증가 → 인대 손상
+
+(3) Bounce Home Test:
+- 자세: 앙와위, 슬관절 완전 굴곡
+- 방법: 족근부를 손바닥에 올리고 슬관절 자연스럽게 신전
+- 정상: 완전 신전되며 탄력적 충격(bouncing home)
+- 양성: 완전 신전 불가(locked knee), 스프링 느낌 → 반월판 손상·관절내 유리체
+
+(4) 견인 검사(Reduction Click/Distraction Test):
+- 아플리 견인: 복와위에서 족부 상방 견인하며 회전
+- 양성: 클릭 → 반월판 손상 확인
+
+[슬개대퇴 검사]
+(5) 슬개대퇴 그라인딩 검사(Patellofemoral Grinding Test):
+- 방법: 슬관절 신전, 슬개골 하방으로 압박하며 내·외측으로 이동
+- 양성: 연발음(crepitation), 통증 → 연골연화증(chondromalacia patellae)
+- 슬개골 하면의 연골 손상 확인
+
+(6) 티넬 징후(Tinel Sign at Knee):
+- 방법: 슬개골 하방 내측 경골 근위부 타진
+- 복재신경(saphenous nerve)의 슬개하분지(infrapatellar branch) 타진
+- 양성: 내측 하퇴·슬개골 하방으로 저림 방사
+
+(7) 슬관절 불안 검사(Apprehension Test for Patellar Dislocation):
+- 방법: 슬관절 신전, 슬개골 외측으로 밀기
+- 양성: 환자 불안감, 근육 긴장 → 슬개골 외측 반복 탈구 경향
+- 연골연화증(chondromalacia), 슬개골 아탈구 감별
+
+[관절 삼출 검사 (Knee Joint Effusion Test)]
+(8) 대량 삼출 검사(Test for Major Effusion):
+- 방법: 슬개골 하방 압박 → 슬개골 탄력적 저항 = 부유 슬개골(ballottable patella)
+- 의미: 관절강 내 대량 삼출액
+
+(9) 소량 삼출 검사(Test for Minor Effusion):
+- 방법: 슬관절 내측면 상방 → 하방으로 쓸어내림(milking) → 외측 상부를 두드림
+- 양성: 내측 슬개골 주위에 파동(fluid wave) 관찰
+- 슬개상낭(suprapatellar pouch) 압박하며 확인
+
+== MPS 임상 보완 ==
+슬관절 MPS 감별 포인트:
+- 내측 슬관절 통증: 내측 반월판 vs. 내측광근 TrP vs. 거위발 건염
+- 외측 슬관절 통증: 외측 반월판 vs. IT band TrP vs. 비골두 주변 TrP
+- 슬와부 통증: Baker's cyst vs. 비복근 TrP vs. 슬와근 TrP
+- 슬개골 주변 통증: 연골연화증 vs. 대퇴직근 TrP vs. 슬개건염
+- 전방 슬관절 통증: ACL 손상 vs. 슬개건염 vs. Osgood-Schlatter
