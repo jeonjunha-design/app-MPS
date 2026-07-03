@@ -2922,3 +2922,114 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 중둔근 TrP → 보행 시 골반 불안정. Trendelenburg 양성 패턴
 - 대둔근 TrP → 미골 통증. 장시간 좌위 불가
 - 슬와건군(hamstring) TrP → 좌골결절 통증. 슬관절 굴곡 제한
+
+[섹션46: Hoppenfeld 7장 슬관절 검진 - 시진·골성촉진]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제7장, pp.206~213
+
+== 7장 슬관절 목차 ==
+1.시진 / 2.골성촉진(내측/외측) / 3.연부조직촉진 / 4.운동범위 /
+5.신경학적검사 / 6.특수검사(내외측인대,십자인대,반월판,슬개골) /
+7.관련부위검사(고관절,족관절,요추) / 8.직장검진 및 관련부위
+
+== 슬관절 해부 개요 ==
+슬관절 구성:
+- 대퇴경골관절(femorotibial joint): 내측·외측 구획
+- 대퇴슬개관절(patellofemoral joint)
+- 근위 경비관절(proximal tibiofibular joint)
+슬관절 안정화 구조: 내측측부인대(MCL), 외측측부인대(LCL), 전방십자인대(ACL), 후방십자인대(PCL), 내·외측 반월판
+
+== 1. 시진 (Inspection) ==
+[정면 관찰]
+- 외반슬(valgus/knock-knee): Q각 증가. 여성에 많음. 내측 관절면 과부하
+- 내반슬(varus/bow-leg): Q각 감소. 외측 관절면 과부하. 외측 반월판 손상 위험
+- 반장슬(genu recurvatum/back knee): 슬관절 과신전. 슬와근·슬괵근 약화
+- 정상: 경도의 외반 5~7도
+
+[측면 관찰]
+- 슬관절 굴곡 구축: 완전 신전 불가
+- 슬괵근(hamstring) 경련 → 굴곡 자세 유지
+- 종창(swelling): 관절 삼출액 → 슬관절 30도 굴곡 자세로 최대 용적
+
+[보행 관찰]
+- heel strike 시 슬관절 약간 굴곡 → 대퇴사두근 원심성 수축으로 제어
+- mid stance 시 신전 → 대퇴사두근 수축
+- 슬괵근 경련(hamstring stiffness): 보행 시 무릎 굴곡 제한
+- 슬개전 점액낭염(prepatellar bursitis): 슬개골 전면 종창
+
+[종창 유형]
+- 국소 종창: 점액낭염(슬개전·슬개하·슬개후·거위발), 반월판 낭종
+- 미만성 종창: 관절 삼출액(synovial fluid) → 슬와부 팽창
+- 슬와 낭종(popliteal cyst/Baker's cyst): 슬와부 종창 → 반월판 손상·관절염 연관
+- 슬개하 점액낭염(infrapatella bursitis): 경골결절 상방 종창
+- pes anserine 점액낭염: 내측 경골 근위부 종창
+
+== 2. 골성촉진 (Bony Palpation) ==
+※ 촉진 자세: 슬관절 90도 굴곡, 검사자 앞에 앉힘
+
+[내측면 (Medial Aspect)]
+1) 내측 경골고원(medial tibial plateau):
+- 위치: 슬관절선 내측의 경골 상면
+- 상연(upper edge): 내측 반월판(medial meniscus) 위치
+- 압통 시: 내측 반월판 손상, 내측측부인대 원위 부착부 손상
+- pes anserine(거위발): 봉공근·박근·반건양근 공통 부착부. 내측 경골고원 하방 약 5cm
+  → 압통 시: 거위발 건염/점액낭염
+
+2) 경골결절(tibial tubercle):
+- 위치: 경골 전면 돌출부. 슬개건(patellar tendon) 정지부
+- 오스굿-슐라터병(Osgood-Schlatter disease): 청소년기 경골결절 견열골절 → 압통·종창
+
+3) 내측 대퇴과(medial femoral condyle):
+- 위치: 대퇴 원위 내측 돌출부
+- 내측상과(medial epicondyle): 내측측부인대(MCL) 기시부
+- 내전근결절(adductor tubercle): 대내전근 정지부. 내측상과 근위
+
+4) 내측 경골과(medial tibial condyle):
+- 경골 근위 내측. 내측측부인대 원위 부착부
+- 대퇴-경골 관절선(junction of tibia & femur): 내측 관절선 압통 → 내측 반월판 손상
+
+[외측면 (Lateral Aspect)]
+5) 외측 대퇴과(lateral femoral condyle):
+- 대퇴 원위 외측. 외측측부인대(LCL) 기시부
+- 외측상과(lateral femoral epicondyle): 압통 → IT band 마찰증후군
+
+6) 외측 경골고원(lateral tibial plateau):
+- 외측 반월판(lateral meniscus) 위치
+- 외측 관절선 압통 → 외측 반월판 손상
+
+7) 비골두(fibular head):
+- 경골 외측 근위부의 비골 상단
+- 외측측부인대(LCL) 원위 부착부
+- 총비골신경(common peroneal nerve): 비골두 후방을 돌아감 → 압박 시 족하수
+
+8) 외측 경골결절(lateral tibial tubercle):
+- 비골두 전내측
+
+[슬개골 (Patella)]
+9) 슬개골(patella):
+- 인체 최대 종자골(sesamoid bone). 대퇴사두근건 내 위치
+- 슬개골 내면(under surface): 완전 신전 시 촉진. 연골연화증(chondromalacia patellae) 압통
+- 슬개골 활차구(trochlear groove): 슬개골 내·외측연 따라 촉진
+- 내측 활차(medial facet): 슬관절 굴곡 90도 이상 시 대퇴과와 접촉
+- synovial thickening: 슬개골 주변 활막 비후 촉지
+
+10) 슬개건(patellar tendon):
+- 슬개골 하극 → 경골결절 연결
+- 압통 → 슬개건염(jumper's knee)
+
+11) 대퇴사두근건(quadriceps tendon):
+- 슬개골 상극 → 대퇴사두근 연결
+
+[대퇴-경골 관절선 (Joint Line)]
+- 슬관절 90도 굴곡 시 촉진 가능
+- 내측 관절선: 내측 반월판 손상 시 압통
+- 외측 관절선: 외측 반월판 손상 시 압통
+- 관절선 부종: 반월판 낭종, 관절 삼출
+
+== 3. 연부조직 촉진 시작 (Soft Tissue Palpation) ==
+① 슬개골 주변 점액낭
+② 슬개건
+③ 슬와부(popliteal fossa):
+- 경계: 위외측=대퇴이두근, 위내측=반건양근·반막양근, 아래=비복근 내·외측두
+- 내용물: 슬와동맥·정맥, 경골신경, 총비골신경, 림프절
+- Baker's cyst(슬와 낭종): 슬와부 정중앙 팽창
+- 슬와근(popliteus): 슬관절 잠금해제(unlocking) 담당
