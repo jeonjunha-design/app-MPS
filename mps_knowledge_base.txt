@@ -3033,3 +3033,167 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 내용물: 슬와동맥·정맥, 경골신경, 총비골신경, 림프절
 - Baker's cyst(슬와 낭종): 슬와부 정중앙 팽창
 - 슬와근(popliteus): 슬관절 잠금해제(unlocking) 담당
+
+[섹션47: Hoppenfeld 7장 슬관절 연부조직촉진·특수검사·ROM]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제7장, pp.214~225
+
+== 3. 연부조직 촉진 (Soft Tissue Palpation) ==
+
+[전면부 (Anterior Aspect)]
+(1) 대퇴사두근(quadriceps femoris):
+- 구성: 대퇴직근(rectus femoris) + 외측광근(vastus lateralis) + 내측광근(vastus medialis) + 중간광근(vastus intermedius)
+- 등척성 수축(isometric contraction): 슬개골 상방 이동 확인
+- 내측광근(VMO): 슬개골 내측 안정화. 약화 시 슬개골 외측 편위
+- 공통근막(common fascia): 4개 근육 감싸는 근막
+- 촉진: 슬개골 상방 7.5cm~42.5cm 구간
+
+(2) 슬개하건(infrapatellar tendon):
+- 슬개골 하극 → 경골결절 (약 7.5cm)
+- 압통 → 점퍼스니(jumper's knee), 슬개건염
+- Osgood-Schlatter 병: 경골결절 부착부 견열 → 청소년 압통·종창
+
+[점액낭 (Bursae)]
+(3) 표재성 슬개전 점액낭(superficial infrapatellar bursa):
+- 슬개골 전면 피부 아래
+- 슬개전 점액낭염(prepatellar bursitis) = "하녀의 무릎(housemaid's knee)"
+- 무릎 꿇는 직업군에 호발
+
+(4) 심부 슬개하 점액낭(deep infrapatellar bursa):
+- 슬개건과 경골 사이
+- Osgood-Schlatter 병과 연관
+
+(5) 거위발 점액낭(pes anserine bursa):
+- 봉공근(sartorius)·박근(gracilis)·반건양근(semitendinosus) 공통 부착부 아래
+- 압통 → 거위발 건염/점액낭염. 내측 슬관절 통증의 흔한 원인
+- 비만, 골관절염 환자에 호발
+
+[내측면 (Medial Aspect)]
+(1) 내측 반월판(medial meniscus):
+- 내측 관절선 따라 C자형
+- 관상인대(coronary ligament)로 경골에 부착
+- 내측 관절선 압통 → 반월판 손상
+- clipping injury: 외반력 + 외회전 시 손상
+
+(2) 내측측부인대(medial collateral ligament, MCL):
+- 기시: 내측 대퇴상과
+- 정지: 내측 경골과
+- 압통 위치: 기시부(대퇴상과), 체부(mid-substance), 정지부(경골)
+- 내측 관절선(medial joint line) 따라 촉진
+- 손상 기전: 외반력(valgus stress)
+
+(3) 거위발 건군(pes anserine tendons):
+- 봉공근(sartorius): 가장 표재성
+- 박근(gracilis): 중간층
+- 반건양근(semitendinosus): 가장 후방
+- 내측 경골 근위 약 5cm에서 합류 → pes anserine 형성
+
+[외측면 (Lateral Aspect)]
+(4) 외측측부인대(lateral collateral ligament, LCL):
+- 기시: 외측 대퇴상과
+- 정지: 비골두
+- 슬관절 신전 시 팽팽, 굴곡 시 이완
+- anterior margin: 장경인대(IT band) 전연
+
+(5) 장경인대(iliotibial tract/IT band):
+- 대퇴 외측 주행 → 경골 외측과(Gerdy's tubercle)에 정지
+- IT band 마찰증후군: 외측 대퇴상과에서 반복 마찰 → 달리기 선수 호발
+- 오버 검사(Ober test): IT band 구축 확인
+
+(6) 총비골신경(common peroneal nerve):
+- 비골두 후방을 돌아 비골경부 통과
+- 압박 시 족하수(foot drop), 하퇴 외측·족배부 감각 이상
+- 비골두 골절, 석고 압박 시 손상 위험
+
+[후면부 (Posterior Aspect)]
+(1) 슬와부(popliteal fossa):
+- 경계: 위외측=대퇴이두근, 위내측=반건양근·반막양근
+         아래=비복근 내·외측두
+- 슬와동맥(popliteal artery): 슬와 중앙 깊이. mobile swelling → 동맥류
+- 슬와정맥(popliteal vein): 심부정맥혈전증(DVT) 평가
+- 후방경골신경(posterior tibial nerve): 슬와 중앙
+- 슬와 낭종(Baker's cyst): 반막양근 점액낭 확장. 반월판 손상·관절염 연관
+  → discrete swelling: 낭종, vascular occlusive disease, DVT 감별
+
+(5) 비복근(gastrocnemius):
+- 내측두: 내측 대퇴과 후면 기시
+- 외측두: 외측 대퇴과 후면 기시
+- 슬와부에서 근복(muscle belly) 촉진
+- 슬와건(hamstring tendon): 슬와 상부에서 촉진
+
+== 4. 운동범위 (ROM, range of motion) ==
+
+[정상 운동범위]
+(1) 굴곡(flexion): 135도
+- 능동: 발뒤꿈치가 둔부에 닿으면 135도
+- 제한 원인: 관절삼출, 굴곡구축, 슬괵근 경련
+
+(2) 신전(extension): 0~10도
+- 완전 신전 = 0도 (해부학적 자세)
+- 과신전(hyperextension): 10도까지 정상 (반장슬 제외)
+- extension lag: 능동 신전 < 수동 신전 → 대퇴사두근 약화
+
+[나사회전운동(Screw Home Mechanism)]
+- 완전 신전 시 경골이 외회전 → 슬관절 잠김(locking)
+- 슬관절 굴곡 시작 시 슬와근(popliteus)이 내회전 → 잠금 해제(unlocking)
+
+== 6. 특수검사 (Special Tests) ==
+
+[측부인대 검사 (Collateral Ligament Tests)]
+(1) 외반 스트레스 검사(Valgus Stress Test) - MCL 검사:
+- 자세: 앙와위, 슬관절 0도 및 30도 굴곡
+- 방법: 대퇴 고정 후 하퇴에 외반력(valgus stress) 적용
+- 양성: 내측 관절 이개(gapping) → MCL 손상
+- 0도 양성: MCL + 후관절낭 손상
+- 30도 양성: MCL 단독 손상
+
+(2) 내반 스트레스 검사(Varus Stress Test) - LCL 검사:
+- 방법: 하퇴에 내반력(varus stress) 적용
+- 양성: 외측 관절 이개 → LCL 손상
+
+[십자인대 검사 (Cruciate Ligament Tests)]
+(2) 전방 전위 검사(Anterior Cruciate Ligament Tests):
+
+① 전방 전위 징후(Anterior Draw Sign):
+- 자세: 앙와위, 슬관절 90도 굴곡, 족부 고정
+- 방법: 경골 근위부를 양손으로 잡고 전방으로 당김
+- 양성: 경골의 전방 전위 6mm 이상 → ACL 손상
+- 그림46: positive anterior draw sign
+
+② 라크만 검사(Lachman Test): 슬관절 20~30도 굴곡에서 시행 → ACL 더 민감
+
+후방 전위 검사(Posterior Cruciate Ligament):
+① 후방 전위 징후(Posterior Draw Sign):
+- 방법: 경골 근위부를 후방으로 밀기
+- 양성: 경골의 후방 전위 → PCL 손상
+- 그림46: positive posterior draw sign
+- 후방 처짐 징후(Posterior Sag Sign): 앙와위에서 중력에 의한 경골 후방 처짐 관찰
+
+[반월판 검사]
+맥머레이 검사(McMurray Test):
+- 자세: 앙와위, 슬관절 최대 굴곡
+- 내측 반월판: 외회전+외반력 하에 신전 → 내측 통증·클릭
+- 외측 반월판: 내회전+내반력 하에 신전 → 외측 통증·클릭
+- 양성: 통증 + 촉지 가능한 클릭(palpable click)
+
+아플리 압박 검사(Apley Compression Test):
+- 복와위, 슬관절 90도 굴곡
+- 하방 압박하며 내·외회전 → 반월판 압박 → 양성: 관절선 통증
+- 견인(distraction)으로 감소 시 반월판, 증가 시 인대 손상
+
+[슬개골 검사]
+슬개골 충격 검사(Ballottement/Patellar Tap Test):
+- 슬관절 신전, 슬개골 하방으로 압박
+- 양성: 탄력적 저항감 → 관절 삼출액
+
+슬개골 불안 검사(Patellar Apprehension Test):
+- 슬개골을 외측으로 밀기
+- 양성: 환자 불안·근육 긴장 → 슬개골 외측 탈구 경향
+
+== MPS 임상 적용 ==
+슬관절 주변 주요 근육 트리거포인트:
+- 대퇴직근(rectus femoris): TrP → 슬개골 상방·심부 통증. 야간 통증
+- 내측광근(VMO): TrP → 슬관절 내측 통증. 슬개골 불안정
+- 슬와근(popliteus): TrP → 슬관절 후면 통증. 경사면 하행 시 악화
+- 슬괵근군(hamstrings): TrP → 슬와부·대퇴 후면 통증. 앉기 불편
+- 비복근(gastrocnemius): TrP → 슬와부·종아리 통증. 야간 경련
+- 장경인대(IT band): TrP → 슬관절 외측 통증. 달리기 후 악화
