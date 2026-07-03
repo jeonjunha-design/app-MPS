@@ -2043,3 +2043,52 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 중둔근 TrP → 중둔근 파행과 유사한 보행
 - 비복근/가자미근 TrP → 종아리 통증으로 발뒤꿈치 닿기 회피
 - 족저근막 TrP → 아침 첫 걸음 통증, 발뒤꿈치 닿기 회피
+
+[섹션39: Hoppenfeld 고관절/골반 검진 상세 - 제6장 촉진 및 MPS]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제6장, pp.172~181
+
+== 고관절 시진 (Inspection) ==
+고관절(hip joint)은 비구(acetabulum)와 대퇴골두(femoral head)로 이루어진 구상관절(ball and socket joint)이다.
+골반대(pelvic girdle): ① 고관절 ② 천장관절(sacroiliac joint) ③ 치골결합(pubic symphysis)
+
+시진 체크리스트:
+- ASIS 높낮이 차이 → 골반 기울기(pelvic tilt)
+- 고정 굴곡 변형(fixed flexion deformity) → 요추 전만 보상
+- 둔부 주름(gluteal fold) 비대칭
+- 골반 기울기(pelvic obliquity), 근위축(muscular atrophy)
+- 고관절 병변 시 굴곡-외회전 자세
+
+== 골성 촉진 전면부 (Bony Palpation - Anterior) ==
+① 장골능(iliac crest): 좌우 높이 차이 → 골반 경사/하지 길이 차이. 정상 시 L4 극돌기 높이
+② ASIS(전상장골극): 봉공근·대퇴근막장근 기시점. 좌우 비대칭 → 골반 회전. 서혜 인대 외측 부착점
+③ 대전자(greater trochanter): ASIS에서 약 7.5cm 하방. 중둔근·소둔근 부착점. 대전자 점액낭 위치
+④ 치골결절(pubic tubercle): 치골결합 외측 1~2cm. 서혜 인대 내측 부착점
+
+== 골성 촉진 후면부 (Bony Palpation - Posterior) ==
+① PSIS(후상장골극): 장골능 후단 함몰부위(피부 딤플). S2 천추 극돌기 높이
+② 좌골결절(ischial tuberosity): 슬와건(hamstring) 기시점. 좌골 점액낭 위치. 고관절 굴곡 시 대둔근이 올라가 노출됨
+③ 천장관절(sacroiliac joint): PSIS 내측, S2 외측. 압통 시 SI joint dysfunction
+
+== 연부조직 촉진 (Soft Tissue Palpation) ==
+대퇴삼각(femoral triangle):
+- 경계: 위=서혜 인대, 외측=봉공근, 내측=장내전근
+- 내용물(NAVY): Nerve(대퇴신경)-Artery(대퇴동맥)-Vein(대퇴정맥)-Empty-Lymphatics
+봉공근(sartorius): ASIS → 경골 내과. 인체 최장 근육. 고관절 굴곡·외회전·외전 시 긴장
+장내전근(adductor longus): 치골체 전면 기시. 고관절 내전·굴곡 시 긴장
+
+== 혈관·신경·점액낭 ==
+대퇴동맥: 서혜 인대 하방 중앙에서 박동 촉지
+대퇴신경(L2,3,4): 대퇴동맥 외측. 대퇴사두근·봉공근·장요근 지배
+좌골신경: 대전자-좌골결절 중간점. 이상근 경련 시 압박 → 좌골신경통
+
+점액낭(Bursae):
+- 대전자 점액낭(trochanteric bursa): IT band와 중둔근 사이. 압통 → 대전자 점액낭염
+- 좌골 점액낭(ischial bursa): 좌골결절 위. 장시간 좌위 시 통증
+- 장요근 점액낭(iliopsoas bursa): 장요근과 관절낭 사이. 탄발음(snapping) 유발
+
+== 고관절 MPS 주요 근육 트리거포인트 ==
+중둔근(Gluteus Medius): TrP → 요천부·둔부 외측·대퇴 외측 연관통. 치료: 대전자-장골능 사이 압통점 마사지
+대둔근(Gluteus Maximus): TrP → 둔부 깊은 통증. 좌위 시 악화
+이상근(Piriformis): TrP → 둔부 깊은 통증 + 좌골신경 방사통. 이상근 증후군(piriformis syndrome)
+장요근(Iliopsoas): TrP → 요부 전면·서혜부·대퇴 전면. Thomas test 양성. 요추 과전만
+대퇴근막장근(TFL)+IT Band: TrP → 대퇴 외측·슬관절 외측. IT band syndrome 감별
