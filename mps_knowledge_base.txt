@@ -2798,3 +2798,127 @@ T1: 손가락외전(내재근), 상완내측 감각
 - 중둔근 TrP → 보행 시 골반 불안정. Trendelenburg 양성 패턴
 - 대둔근 TrP → 미골 통증. 장시간 좌위 불가
 - 슬와건군(hamstring) TrP → 좌골결절 통증. 슬관절 굴곡 제한
+
+[섹션44: Hoppenfeld 6장 고관절 연부조직촉진·ROM·신경학적검사·특수검사]
+출처: Stanley Hoppenfeld MD, 척추와 사지의 검진 제6장, pp.182~191
+
+== 연부조직 촉진 - 근육 그루핑 ==
+
+① 굴곡근 그루핑(flexor grouping):
+(1) 장요근(iliopsoas):
+- 구성: 장골근(iliacus) + 대요근(psoas major)
+- 기시: 장골와(iliac fossa) + 요추 추체 측면(T12-L4)
+- 정지: 대퇴골 소전자(lesser trochanter)
+- 기능: 고관절 굴곡 주동근. 슬관절 신전 보조
+- 촉진: 서혜 인대 하방, 대퇴삼각 내측에서 촉진
+- indirect head(대요근): 요추 전만 증가 시 단축
+- direct head(장골근): ASIS 내측에서 촉진
+- 임상: 단축 시 요추 전만 증가, Thomas test 양성
+
+(2) 대퇴직근(rectus femoris):
+- 기시: 전하장골극(AIIS, anterior inferior iliac spine) - direct head
+         비구 상연(acetabular rim) - indirect head
+- 정지: 슬개골(patella) → 경골조면(tibial tuberosity)
+- 기능: 고관절 굴곡 + 슬관절 신전
+- 대퇴사두근(quadriceps femoris) 구성: 대퇴직근 + 외측광근 + 내측광근 + 중간광근
+
+② 내전근 그루핑(adductor grouping):
+- 장내전근(adductor longus): 치골체 전면. 촉진 용이. 대퇴삼각 내측경계
+- 단내전근(adductor brevis): 장내전근 심층
+- 대내전근(adductor magnus): 가장 큰 내전근. 좌골결절~치골 기시
+- 박근(gracilis): 치골결합 하방 기시. 슬관절 굴곡·내회전 보조
+- 치골근(pectineus): 치골능 기시. 굴곡+내전
+- 촉진: 대퇴 내측에서 원위부 향해 촉진. 고관절 내전 시 긴장
+
+③ 외전근 그루핑(abductor grouping):
+- 중둔근(gluteus medius): 장골능 외면. 대전자 부착. 보행 시 골반 안정화
+- 소둔근(gluteus minimus): 중둔근 심층. 대전자 전면 부착
+- 대퇴근막장근(TFL): ASIS 기시. 장경인대(IT band)로 이어짐
+- 임상: 약화 시 Trendelenburg 징후(+), 중둔근 파행
+
+④ 신전근 그루핑(extensor grouping):
+- 대둔근(gluteus maximus): 가장 큰 둔부 근육. 장골 후면+천골 기시. 대퇴골 둔근조면 정지
+- 슬와건군(hamstrings): 대퇴이두근+반건양근+반막양근. 좌골결절 기시
+- 임상: 대둔근 약화 시 신전근 파행(extensor lurch)
+
+== 운동범위(ROM) - 능동검사 ==
+(1) 굴곡(flexion): 정상 120도
+- 검사: 앙와위에서 무릎 굴곡하여 가슴 쪽으로 당김
+- 제한 시: 장요근 단축, 골관절염
+- Thomas test: 반대쪽 고관절 굴곡 시 검사측 허벅지 들림 → 굴곡 구축
+
+(2) 신전(extension): 정상 30도
+- 검사: 복와위에서 슬관절 신전한 채 다리 들어올림
+- 제한 시: 장요근 단축, 전방 관절낭 구축
+
+(3) 외전(abduction): 정상 45~50도
+- 검사: 앙와위, 골반 고정 후 다리 외측으로 이동
+- 제한 시: 내전근 단축, 골관절염
+
+(4) 내전(adduction): 정상 20~30도
+- 검사: 반대쪽 다리 위로 교차
+
+(5) 내회전(internal rotation): 정상 35도
+- 검사: 앙와위 또는 복와위, 슬관절 90도 굴곡
+- 제한 시: 이상근 단축, 골관절염 (내회전 제한이 가장 먼저)
+
+(6) 외회전(external rotation): 정상 45도
+
+== 신경학적 검사 ==
+
+[반사검사(reflex testing)]
+(1) S1 반사: 아킬레스건 반사(Achilles tendon reflex)
+- 방법: 족관절 약간 배측 굴곡 유지 후 아킬레스건 타진
+- S1 신경근 검사
+- 감퇴/소실: S1 신경근 압박 (L5-S1 추간판탈출증)
+- 항진: 상위운동신경원 병변
+
+(2) 슬개건 반사(patellar tendon reflex): L4 신경근
+(3) 내측 슬와건 반사(medial hamstring reflex): L5 신경근
+
+[근력검사]
+- 고관절 굴곡: 장요근 (L1-2-3)
+- 고관절 신전: 대둔근 (L5-S1-2)
+- 고관절 외전: 중둔근 (L4-5-S1)
+- 고관절 내전: 내전근군 (L2-3-4)
+- 슬관절 신전: 대퇴사두근 (L2-3-4)
+- 슬관절 굴곡: 슬와건군 (L5-S1-2)
+
+[감각검사 - 피부절]
+- L1: 서혜부, 대퇴 상내측
+- L2: 대퇴 전면 상부
+- L3: 대퇴 전면 하부, 슬관절 내측
+- L4: 하퇴 내측, 내과(medial malleolus)
+- L5: 하퇴 외측, 족배부, 1-2지
+- S1: 족저부, 외과(lateral malleolus), 소지
+
+== 특수검사(Special Tests) ==
+
+[대퇴골두 비틀림 각도 검사]
+(1) 전염(anteversion) 검사:
+- 정상 전염각: 성인 약 15도 (소아 더 큼)
+- 과도한 전염(excessive anteversion): 내족지 보행(toeing-in gait)
+- 복와위에서 슬관절 90도 굴곡 후 내회전 시 대전자가 가장 외측으로 돌출되는 각도 측정
+- 그림 44: anteversion → 내회전 증가, toeing-in
+- 그림 45: retroversion → 외회전 증가, toeing-out
+
+(2) 내·외과 교대검사(alternate test method, 특수검사 10):
+- 내과(medial malleolus)와 외과(lateral malleolus) 위치 비교
+- 앙와위에서 슬개골을 천장 향하게 하고 발목 관찰
+- 정상: 내과가 외과보다 약간 전방
+- 대퇴골 과도 전염: 내과가 더 전방으로 이동
+
+[경직성/유연성 편평족 검사]
+- 경직성 편평족(rigid flat foot): 체중부하·비부하 시 모두 아치 소실
+- 유연성 편평족(supple/flexible flat foot): 비부하 시 아치 회복
+- 검사: 발끝 서기(tiptoeing) → 유연성 편평족 시 아치 회복
+- 경골 비틀림(tibial torsion): 내경골비틀림(internal tibial torsion) → 내족지 보행
+
+== MPS 임상 적용 ==
+고관절 굴곡 구축과 MPS:
+- 장요근 TrP → 굴곡 구축 패턴. 요추 전만 증가
+- 대퇴직근 TrP → 슬관절 신전 제한. 전방 대퇴 통증
+- 내전근군 TrP → 서혜부·대퇴 내측 통증. 고관절 외전 제한
+- 중둔근 TrP → 보행 시 골반 불안정. Trendelenburg 양성 패턴
+- 대둔근 TrP → 미골 통증. 장시간 좌위 불가
+- 슬와건군(hamstring) TrP → 좌골결절 통증. 슬관절 굴곡 제한
