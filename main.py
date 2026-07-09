@@ -5,6 +5,7 @@ main.py — MPS AI 처방 FastAPI 서버
 """
 
 import os
+import re
 import json
 import requests
 from pathlib import Path
@@ -22,11 +23,11 @@ load_dotenv()
 GCP_PROJECT  = os.getenv("GOOGLE_CLOUD_PROJECT", "mps-project-2026-0625")
 KEY_PATH     = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/Users/juna/mps-key.json")
 OLLAMA_URL   = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma4:latest")
 FS_KNOW_COL  = os.getenv("FIRESTORE_KNOWLEDGE_COLLECTION", "mps_knowledge")
 FS_LOG_COL   = os.getenv("FIRESTORE_LOG_COLLECTION", "mps_consultations")
 CHROMA_PATH  = os.getenv("CHROMA_DB_PATH", "./chroma_mps_db")
-TOP_K        = 5
+TOP_K        = 8
 
 if Path(KEY_PATH).exists():
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = KEY_PATH
@@ -54,7 +55,8 @@ def _build_chroma_from_firestore():
     db = get_firestore()
     docs = list(db.collection(FS_KNOW_COL).stream())
     chunks = [
-        {"id": d.id, "text": d.to_dict().get("text", "")}
+        {"id": d.id, "text": d.to_dict().get("text", ""),
+         "section_title": d.to_dict().get("section_title", "")}
         for d in docs
         if d.id != "_meta" and d.to_dict().get("text")
     ]
@@ -76,8 +78,9 @@ def _build_chroma_from_firestore():
     batch = 100
     for i in range(0, len(chunks), batch):
         b = chunks[i:i+batch]
-        col.add(ids=[c["id"] for c in b], documents=[c["text"] for c in b])
-    print(f"ChromaDB 빌드 완료: {col.count()}개 청크")
+        col.add(ids=[c["id"] for c in b], documents=[c["text"] for c in b],
+                metadatas=[{"section_title": c["section_title"]} for c in b])
+    print(f"ChromaDB 빌드 완료: {col.count()}개 청크 (메타데이터 포함)")
 
 def get_chroma():
     global _chroma_col
@@ -121,46 +124,125 @@ class PrescriptionResponse(BaseModel):
     prescription: str
     disclaimer: str
 
+# body_part 라벨 → 섹션 제목에서 찾을 키워드. 다국어 임베딩만으로는 "자세/동작/횟수" 같은
+# 공통 서식 문구에 묻혀 부위 변별력이 약해서(예: 팔꿈치 쿼리에 요추/경추 청크가 섞여 나옴),
+# 시맨틱 검색 결과를 넉넉히 뽑은 뒤 섹션 제목 키워드로 재정렬하는 하이브리드 검색을 쓴다.
+BODY_PART_KEYWORDS = {
+    "허리(요추)": ["요추"],
+    "목(경추)": ["경추"],
+    "어깨(견관절)": ["견관절", "어깨"],
+    "무릎(슬관절)": ["슬관절", "무릎"],
+    "고관절/골반": ["고관절", "골반"],
+    "발목(족관절)": ["족관절", "발목"],
+    "손목(수근관절)": ["수근관절", "손목"],
+    "팔꿈치(주관절)": ["주관절", "팔꿈치"],
+}
+MAX_RETRIEVE_CANDIDATES = 300  # 코퍼스가 매우 커질 경우를 대비한 상한선
+
+
+def _body_part_keywords(body_part: str) -> list:
+    kws = BODY_PART_KEYWORDS.get(body_part)
+    if kws:
+        return kws
+    # 고정 라벨에 없는 자유 입력(예: AI 맞춤 처방 탭 직접 입력)은
+    # 괄호/슬래시/쉼표 등으로 쪼갠 조각을 키워드 후보로 사용
+    parts = [p.strip() for p in re.split(r"[()/·,\s]+", body_part) if p.strip()]
+    return parts or [body_part]
+
+
 def retrieve_context(query: str, body_part: str) -> tuple:
     col = get_chroma()
+    # 코퍼스 전체를 후보로 스캔해야 키워드 매치를 놓치지 않는다 — 지금은 수백 개 규모라
+    # 전체를 가져와도 가볍지만, 너무 커지면 MAX_RETRIEVE_CANDIDATES 로 상한을 둔다.
+    n_candidates = min(col.count(), MAX_RETRIEVE_CANDIDATES)
     results = col.query(
-        query_texts=[f"{body_part} {query}"],
-        n_results=TOP_K,
-        include=["documents", "distances"]
+        query_texts=[f"{body_part} 스트레칭 운동 치료"],
+        n_results=n_candidates,
+        include=["documents", "distances", "metadatas"]
     )
     docs = results["documents"][0]
     distances = results["distances"][0]
-    filtered = [d for d, dist in zip(docs, distances) if dist < 0.85] or docs[:3]
+    metadatas = results["metadatas"][0]
+
+    keywords = _body_part_keywords(body_part)
+
+    def matches(meta, doc):
+        # section_title 만으로 판단 — 본문에서 부위 키워드를 찾으면
+        # (예: 어깨 스트레칭 설명 중 팔꿈치 각도를 언급하는 경우처럼) 다른 부위 섹션이
+        # 잘못 걸려드는 오탐이 생기므로 신뢰할 수 있는 섹션 제목만 사용한다.
+        title = (meta or {}).get("section_title") or ""
+        return any(kw in title for kw in keywords)
+
+    ranked = sorted(zip(docs, distances, metadatas), key=lambda x: x[1])
+    keyword_hits = [d for d, dist, meta in ranked if matches(meta, d)]
+
+    if keyword_hits:
+        filtered = keyword_hits[:TOP_K]
+    else:
+        # 제목/본문 어디에도 부위 키워드가 없으면(메타데이터 없는 구버전 인덱스 등)
+        # 기존 거리 기준 필터로 폴백해 결과가 아예 없어지지 않게 한다.
+        filtered = [d for d, dist in zip(docs, distances) if dist < 0.85][:TOP_K] or docs[:3]
+
     return "\n\n---\n\n".join(filtered), len(filtered)
+
+# body_part 라벨(app.py 가 만들어내는 문자열과 동일) → 부위별 빠른 선택과 같은 이모지.
+# AI 처방의 "<이모지 부위>" 헤더가 홈 처방 빠른 선택의 부위 헤더와 시각적으로 일치하도록 맞춘다.
+BODY_PART_EMOJI = {
+    "허리(요추)": "🔴", "목(경추)": "🔵", "어깨(견관절)": "🟢",
+    "무릎(슬관절)": "🟤", "고관절/골반": "🟣", "발목(족관절)": "⚫",
+    "손목(수근관절)": "🟠", "팔꿈치(주관절)": "🟡",
+}
+
 
 def build_prompt(req: SymptomRequest, context: str) -> str:
     extras = ""
     if req.occupation:  extras += f"\n- 직업: {req.occupation}"
     if req.aggravating: extras += f"\n- 악화 요인: {req.aggravating}"
     if req.relieving:   extras += f"\n- 완화 요인: {req.relieving}"
-    return f"""당신은 한국어로만 답변하는 근막통증증후군(MPS) 전문 물리치료사입니다.
+    part_emoji = BODY_PART_EMOJI.get(req.body_part, "🔘")
+    part_header = f"<{part_emoji} {req.body_part}>"
+    return f"""[역할]
+당신은 한국어로만 답변하는 MPS 전문 물리치료사입니다.
 
-[참고 지식]
+[참고 지식 - 반드시 이 내용 기반으로만 처방]
 {context}
 
-[환자]
-통증 부위: {req.body_part} | 강도: {req.pain_level}/10 | 기간: {req.duration} | 증상: {req.symptoms}{extras}
+[환자 정보]
+- 통증 부위: {req.body_part}
+- 통증 강도: {req.pain_level}/10
+- 지속 기간: {req.duration}
+- 증상: {req.symptoms}{extras}
 
-[지시사항]
-- 반드시 한국어로만 작성하세요
-- {req.body_part} 부위에 맞는 처방만 작성하세요
-- 기간({req.duration})에 맞게: 오늘/2~3일=냉찜질+가벼운운동, 1주~4주=온찜질+스트레칭, 1개월이상=복합치료
-- 각 운동과 스트레칭마다 자세, 동작, 횟수, 세트를 구체적으로 명시하세요
-- 도수치료 권고 시 Maitland/MET PIR/허혈성 압박/IASTM 기법명을 포함하세요
+[엄격한 규칙]
+1. 반드시 한국어로만 작성
+2. {req.body_part} 부위만 처방. 다른 부위는 언급 금지
+3. 위 참고 지식에서 {req.body_part} 관련 내용만 사용
 
-아래 6개 항목으로 처방을 작성하세요:
+[출력 형식 - 반드시 아래 형식 그대로, 이 순서로 작성. 줄바꿈 규칙을 정확히 지킬 것]
+- 첫 줄은 정확히 "{part_header}" 로 시작 (다른 텍스트 없이 그대로 출력)
+- 그 다음 빈 줄 1개, 그리고 아래 4개 카테고리만 이 순서로 작성
+- 각 카테고리는 "[카테고리명]" 한 줄, 그 다음 빈 줄 없이 바로 "- "로 시작하는 항목들
+- 항목과 항목 사이에는 빈 줄 없이 줄바꿈만 (각 항목은 한 줄로 작성, 항목 중간에 줄바꿈 금지)
+- 카테고리와 카테고리 사이에만 빈 줄 1개를 넣으세요
+- 즉, 전체에서 빈 줄이 들어가는 곳은 "부위 헤더 다음"과 "카테고리 사이" 딱 두 곳뿐입니다
+- 각 항목에 자세·동작·횟수를 구체적으로 포함 (예: "- 턱 당기기: 앉아서 이중턱 만들듯 당기기, 10초×10회×3세트")
+- 다른 문구(설명, 인사말, 번호 매기기 등)는 추가하지 말 것
 
-## 🔍 증상 분석
-## 🔥 즉시 적용
-## 🧘 스트레칭 프로그램
-## 💪 운동 치료
-## 🏥 도수치료 권고
-## 🏠 자세 교정 & 예방
+{part_header}
+
+[스트레칭]
+- ({req.body_part} 전용 스트레칭 3~5가지 중 첫 번째, 자세/동작/횟수 명시, 한 줄로)
+- ({req.body_part} 전용 스트레칭 두 번째, 한 줄로)
+
+[운동치료]
+- ({req.body_part} 전용 강화운동 3~5가지 중 첫 번째, 자세/동작/횟수 명시, 한 줄로)
+- ({req.body_part} 전용 강화운동 두 번째, 한 줄로)
+
+[자세교정]
+- ({req.body_part} 통증 예방을 위한 자세 및 생활습관, 한 줄로)
+
+[도수치료 권고]
+- ({req.body_part}에 적합한 Maitland/MET/허혈성압박/IASTM 기법, 한 줄로)
 """
 
 
@@ -236,6 +318,52 @@ async def get_prescription(req: SymptomRequest):
         disclaimer="⚠️ 이 정보는 교육 목적이며 의학적 진단·처방을 대체하지 않습니다."
     )
 
+@app.post("/knowledge_search")
+async def knowledge_search(req: dict):
+    query = req.get("query", "").strip()
+    n_results = req.get("n_results", 5)
+    if not query:
+        return {"answer": "질문을 입력해주세요.", "chunks_found": 0}
+
+    # ChromaDB에서 관련 청크 검색
+    try:
+        col = get_chroma()
+        results = col.query(query_texts=[query], n_results=n_results)
+        docs = results["documents"][0] if results["documents"] else []
+        chunks_found = len(docs)
+        context = "\n\n---\n\n".join(docs)
+    except Exception as e:
+        return {"answer": f"검색 오류: {e}", "chunks_found": 0}
+
+    if not context:
+        return {"answer": "관련 지식을 찾지 못했습니다.", "chunks_found": 0}
+
+    # EXAONE으로 답변 생성
+    prompt = f"""반드시 한국어로만 답변하세요. Do not use English. 한국어 답변만 허용됩니다.
+
+당신은 도수치료 전문 AI 어시스턴트입니다.
+아래 참고 자료를 바탕으로 질문에 대해 정확하고 상세하게 한국어로 답변하세요.
+
+[참고 자료]
+{context}
+
+[질문]
+{query}
+
+[답변 지침]
+- 반드시 한국어로만 답변하세요
+- 참고 자료에 있는 내용을 중심으로 답변하세요
+- 근육명, 신경명, 검사명은 한국어(영어병기) 형식으로 표기하세요 예: 전경골근(tibialis anterior)
+- 임상적으로 중요한 내용은 **굵게** 강조하세요
+- 마크다운 형식으로 구조화하여 답변하세요
+- 참고 자료에 없는 내용은 "추가 확인 필요"로 표시하세요
+
+한국어 답변:"""
+
+    answer = call_ollama(prompt)
+    return {"answer": answer, "chunks_found": chunks_found}
+
+
 @app.get("/db-stats")
 async def db_stats():
     stats = {}
@@ -277,6 +405,7 @@ class ChartData(BaseModel):
     pt_session: int = 1
     pt_therapist: str = ""
     pt_dx: str = ""
+    chart_type: str = "도수치료"  # "도수치료" 또는 "운동치료"
     chart_content: str  # 전체 차트 텍스트
     soap_json: dict = {}  # 구조화된 SOAP 데이터
 
@@ -314,13 +443,16 @@ async def save_chart(data: ChartData):
                 "sessions": []
             }
 
-        # 같은 날짜+회차 있으면 업데이트, 없으면 추가
-        session_key = f"{data.pt_date}_{data.pt_session:03d}"
+        # 같은 날짜+회차+차트유형 있으면 업데이트, 없으면 추가
+        # (운동치료는 "_ex" 접미어를 붙여 같은 날짜라도 도수치료와 분리 저장)
+        type_suffix = "_ex" if data.chart_type == "운동치료" else ""
+        session_key = f"{data.pt_date}_{data.pt_session:03d}{type_suffix}"
         existing_idx = next((i for i, s in enumerate(pt_data["sessions"])
                              if s.get("session_key") == session_key), None)
         session_record = {
             "session_key": session_key,
             "chart_no": data.chart_no,
+            "chart_type": data.chart_type,
             "pt_date": data.pt_date,
             "pt_session": data.pt_session,
             "pt_therapist": data.pt_therapist,
@@ -354,9 +486,11 @@ async def save_chart(data: ChartData):
     try:
         db = get_firestore()
         pt_key = make_pt_key(data.pt_name, data.chart_no)
-        doc_id = f"{data.pt_date}_{data.pt_session:03d}"
+        type_suffix = "_ex" if data.chart_type == "운동치료" else ""
+        doc_id = f"{data.pt_date}_{data.pt_session:03d}{type_suffix}"
         db.collection("pt_charts").document(pt_key).collection("sessions").document(doc_id).set({
             "chart_no": data.chart_no,
+            "chart_type": data.chart_type,
             "pt_name": data.pt_name,
             "pt_age": data.pt_age,
             "pt_gender": data.pt_gender,
@@ -383,9 +517,102 @@ async def save_chart(data: ChartData):
 
     return {"status": "완료", "results": results}
 
+@app.put("/chart/update/{chart_id}")
+async def update_chart(chart_id: str, data: ChartData):
+    """기존 차트를 새 차트 생성이 아닌 chart_id(=session_key)로 덮어쓰기.
+    /chart/save 와 동일한 구조를 받되, 세션 키를 요청 데이터(날짜+회차)로 재계산하지 않고
+    URL 의 chart_id 를 그대로 사용해 같은 레코드/문서를 갱신한다."""
+    now_str = datetime.now(timezone.utc).isoformat()
+    results = {}
+
+    # 1. JSON 파일 업데이트
+    try:
+        patients_dir = Path(__file__).parent / "patients"
+        patients_dir.mkdir(exist_ok=True)
+        pt_key = make_pt_key(data.pt_name, data.chart_no)
+        json_path = patients_dir / f"{pt_key}.json"
+
+        if json_path.exists():
+            with open(json_path, 'r', encoding='utf-8') as f:
+                pt_data = json.load(f)
+        else:
+            pt_data = {
+                "pt_name": data.pt_name,
+                "chart_no": data.chart_no,
+                "sessions": []
+            }
+
+        session_record = {
+            "session_key": chart_id,
+            "chart_no": data.chart_no,
+            "chart_type": data.chart_type,
+            "pt_date": data.pt_date,
+            "pt_session": data.pt_session,
+            "pt_therapist": data.pt_therapist,
+            "pt_dx": data.pt_dx,
+            "pt_age": data.pt_age,
+            "pt_gender": data.pt_gender,
+            "chart_content": data.chart_content,
+            "soap_json": data.soap_json,
+            "saved_at": now_str
+        }
+        existing_idx = next((i for i, s in enumerate(pt_data["sessions"])
+                             if s.get("session_key") == chart_id), None)
+        if existing_idx is not None:
+            pt_data["sessions"][existing_idx] = session_record
+        else:
+            pt_data["sessions"].append(session_record)
+
+        pt_data["sessions"].sort(key=lambda x: x["session_key"], reverse=True)
+        pt_data["pt_name"] = data.pt_name
+        pt_data["chart_no"] = data.chart_no
+        pt_data["last_visit"] = data.pt_date
+        pt_data["pt_dx"] = data.pt_dx
+
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(pt_data, f, ensure_ascii=False, indent=2)
+
+        results["json"] = f"✅ 로컬 업데이트 완료 ({json_path.name})"
+    except Exception as e:
+        results["json"] = f"❌ 로컬 업데이트 실패: {e}"
+
+    # 2. Firestore 업데이트
+    try:
+        db = get_firestore()
+        pt_key = make_pt_key(data.pt_name, data.chart_no)
+        db.collection("pt_charts").document(pt_key).collection("sessions").document(chart_id).set({
+            "chart_no": data.chart_no,
+            "chart_type": data.chart_type,
+            "pt_name": data.pt_name,
+            "pt_age": data.pt_age,
+            "pt_gender": data.pt_gender,
+            "pt_date": data.pt_date,
+            "pt_session": data.pt_session,
+            "pt_therapist": data.pt_therapist,
+            "pt_dx": data.pt_dx,
+            "chart_content": data.chart_content,
+            "soap_json": data.soap_json,
+            "updated_at": datetime.now(timezone.utc),
+        })
+        db.collection("pt_charts").document(pt_key).set({
+            "pt_name": data.pt_name,
+            "chart_no": data.chart_no,
+            "pt_age": data.pt_age,
+            "pt_gender": data.pt_gender,
+            "pt_dx": data.pt_dx,
+            "last_visit": data.pt_date,
+            "updated_at": datetime.now(timezone.utc),
+        }, merge=True)
+        results["firestore"] = "✅ 클라우드 업데이트 완료"
+    except Exception as e:
+        results["firestore"] = f"❌ 클라우드 업데이트 실패: {e}"
+
+    return {"status": "완료", "results": results}
+
+
 @app.get("/chart/load/{pt_key}")
-async def load_chart(pt_key: str):
-    # JSON 파일에서 먼저 로드
+async def load_chart(pt_key: str, chart_type: str = None):
+    # JSON 파일에서 먼저 로드 (chart_type 지정 시 해당 유형만)
     try:
         patients_dir = Path(__file__).parent / "patients"
         json_path = patients_dir / f"{pt_key}.json"
@@ -400,7 +627,14 @@ async def load_chart(pt_key: str):
             for s in pt_data.get("sessions", []):
                 s["pt_name"] = pt_data.get("pt_name", pt_key)
                 s["source"] = "local"
+                s.setdefault("chart_type", "도수치료")
                 sessions.append(s)
+            # chart_type 지정 시: 같은 유형 세션을 앞으로 정렬(없으면 다른 유형).
+            # 전체 세션은 그대로 반환 → 앱에서 S/O/A(전체 최근)·P(동일 유형) 분리 적용.
+            if chart_type:
+                same = [s for s in sessions if s["chart_type"] == chart_type]
+                other = [s for s in sessions if s["chart_type"] != chart_type]
+                sessions = same + other
             if sessions:
                 return {"status": "ok", "sessions": sessions,
                         "count": len(sessions), "source": "json"}
@@ -417,15 +651,20 @@ async def load_chart(pt_key: str):
             d = s.to_dict()
             d["doc_id"] = s.id
             d["source"] = "cloud"
+            d.setdefault("chart_type", "도수치료")
             sessions.append(d)
+        if chart_type:
+            same = [s for s in sessions if s["chart_type"] == chart_type]
+            other = [s for s in sessions if s["chart_type"] != chart_type]
+            sessions = same + other
         return {"status": "ok", "sessions": sessions, "count": len(sessions), "source": "firestore"}
     except Exception as e:
         raise HTTPException(500, str(e))
 
 @app.get("/chart/search")
-async def search_chart(q: str):
+async def search_chart(q: str, chart_type: str = None):
     results = []
-    # JSON 파일 검색
+    # JSON 파일 검색 (chart_type 지정 시 해당 유형 차트가 있는 환자만)
     try:
         patients_dir = Path(__file__).parent / "patients"
         if patients_dir.exists():
@@ -441,12 +680,20 @@ async def search_chart(q: str):
                     continue
                 pt_name = pt_data.get("pt_name", "")
                 chart_no = pt_data.get("chart_no", "")
+                sessions = pt_data.get("sessions", [])
+                if chart_type and not any(
+                        s.get("chart_type", "도수치료") == chart_type for s in sessions):
+                    continue
                 if q.lower() in pt_name.lower() or (q and q in chart_no):
                     results.append({
                         "pt_name": pt_name,
                         "chart_no": chart_no,
                         "pt_dx": pt_data.get("pt_dx", ""),
                         "last_visit": pt_data.get("last_visit", ""),
+                        "manual_count": sum(1 for s in sessions
+                                            if s.get("chart_type", "도수치료") == "도수치료"),
+                        "exercise_count": sum(1 for s in sessions
+                                              if s.get("chart_type") == "운동치료"),
                         "pt_key": json_file.stem,
                         "source": "local"
                     })
@@ -477,14 +724,21 @@ async def list_charts():
         if patients_dir.exists():
             for json_file in sorted(patients_dir.glob("*.json"),
                                     key=lambda f: f.stat().st_mtime, reverse=True)[:50]:
+                if json_file.stat().st_size == 0:
+                    continue
                 with open(json_file, 'r', encoding='utf-8') as f:
                     pt_data = json.load(f)
+                sessions = pt_data.get("sessions", [])
                 results.append({
                     "pt_name": pt_data.get("pt_name", ""),
                     "chart_no": pt_data.get("chart_no", ""),
                     "pt_dx": pt_data.get("pt_dx", ""),
                     "last_visit": pt_data.get("last_visit", ""),
-                    "visits": len(pt_data.get("sessions", [])),
+                    "visits": len(sessions),
+                    "manual_count": sum(1 for s in sessions
+                                        if s.get("chart_type", "도수치료") == "도수치료"),
+                    "exercise_count": sum(1 for s in sessions
+                                          if s.get("chart_type") == "운동치료"),
                     "pt_key": json_file.stem,
                     "source": "local"
                 })
@@ -523,3 +777,32 @@ async def delete_chart(data: DeleteChart):
         results["firestore"] = f"❌ {e}"
 
     return {"status": "완료", "results": results}
+
+
+@app.delete("/patient/{pt_key}")
+async def delete_patient(pt_key: str):
+    """환자 전체 삭제: 로컬 JSON 파일 + Firestore 문서/하위 세션 컬렉션."""
+    results = {}
+    # 1. 로컬 JSON 파일 삭제
+    try:
+        json_path = Path(__file__).parent / "patients" / f"{pt_key}.json"
+        if json_path.exists():
+            json_path.unlink()
+            results["json"] = "✅ 로컬 파일 삭제 완료"
+        else:
+            results["json"] = "로컬 파일 없음"
+    except Exception as e:
+        results["json"] = f"❌ {e}"
+
+    # 2. Firestore 문서 + 하위 sessions 컬렉션 전체 삭제
+    try:
+        db = get_firestore()
+        doc_ref = db.collection("pt_charts").document(pt_key)
+        for sdoc in doc_ref.collection("sessions").stream():
+            sdoc.reference.delete()
+        doc_ref.delete()
+        results["firestore"] = "✅ 클라우드 삭제 완료"
+    except Exception as e:
+        results["firestore"] = f"❌ {e}"
+
+    return {"status": "삭제 완료", "results": results}
