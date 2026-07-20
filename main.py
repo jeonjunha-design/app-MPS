@@ -144,53 +144,98 @@ def _body_part_keywords(body_part: str) -> list:
     kws = BODY_PART_KEYWORDS.get(body_part)
     if kws:
         return kws
-    # 고정 라벨에 없는 자유 입력(예: AI 맞춤 처방 탭 직접 입력)은
-    # 괄호/슬래시/쉼표 등으로 쪼갠 조각을 키워드 후보로 사용
+    # 부분 매칭: 입력이 키의 일부를 포함하면 해당 키워드 반환
+    for key, vals in BODY_PART_KEYWORDS.items():
+        if body_part in key or any(v in body_part for v in vals):
+            return vals
+    # 고정 라벨에 없는 자유 입력은 조각을 키워드 후보로 사용
     parts = [p.strip() for p in re.split(r"[()/·,\s]+", body_part) if p.strip()]
     return parts or [body_part]
 
 
 def retrieve_context(query: str, body_part: str) -> tuple:
     col = get_chroma()
-    # 코퍼스 전체를 후보로 스캔해야 키워드 매치를 놓치지 않는다 — 지금은 수백 개 규모라
-    # 전체를 가져와도 가볍지만, 너무 커지면 MAX_RETRIEVE_CANDIDATES 로 상한을 둔다.
     n_candidates = min(col.count(), MAX_RETRIEVE_CANDIDATES)
-    results = col.query(
-        query_texts=[f"{body_part} 스트레칭 운동 치료"],
-        n_results=n_candidates,
-        include=["documents", "distances", "metadatas"]
-    )
-    docs = results["documents"][0]
-    distances = results["distances"][0]
-    metadatas = results["metadatas"][0]
+
+    # 부위별 TrP·치료 키워드 매핑
+    trp_keywords = {
+        "요추": "요방형근 이상근 다열근 QL TrP 허혈성압박 McGill 코어 요통",
+        "허리": "요방형근 이상근 다열근 QL TrP 허혈성압박 McGill 코어 요통",
+        "경추": "상부승모근 견갑거근 후두하근 흉쇄유돌근 TrP 친턱 DNF 경부통",
+        "목": "상부승모근 견갑거근 후두하근 흉쇄유돌근 TrP 친턱 DNF 경부통",
+        "어깨": "극상근 극하근 소흉근 전거근 TrP 회전근개 충돌증후군 외회전",
+        "견관절": "극상근 극하근 소흉근 전거근 TrP 회전근개 충돌증후군 외회전",
+        "무릎": "외측광근 슬와근 VMO TrP 슬개골 PFPS 장경인대 클램쉘",
+        "슬관절": "외측광근 슬와근 VMO TrP 슬개골 PFPS 장경인대 클램쉘",
+        "발목": "비복근 가자미근 전경골근 TrP 족저근막 아킬레스 균형",
+        "족관절": "비복근 가자미근 전경골근 TrP 족저근막 아킬레스 균형",
+        "고관절": "이상근 중둔근 대둔근 TFL TrP 클램쉘 글루트브릿지",
+        "팔꿈치": "ECRB 원회내근 FCR TrP 외측상과염 테니스엘보 편심성",
+        "주관절": "ECRB 원회내근 FCR TrP 외측상과염 테니스엘보 편심성",
+        "손목": "수근관 정중신경 FCR FCU TrP CTS 신경가동술",
+        "수근관절": "수근관 정중신경 FCR FCU TrP CTS 신경가동술",
+    }
+
+    # 부위 매칭 TrP 키워드 찾기
+    extra_kw = ""
+    for k, v in trp_keywords.items():
+        if k in body_part or k in (query or ""):
+            extra_kw = v
+            break
+
+    # 다중 쿼리로 검색 (부위+TrP+치료 조합)
+    queries = [
+        f"{body_part} TrP 트리거포인트 허혈성압박 치료",
+        f"{body_part} 스트레칭 운동치료 도수치료 처방",
+        f"{extra_kw} 처방 프로토콜" if extra_kw else f"{body_part} MPS 처방",
+    ]
+
+    all_docs = {}
+    for q in queries:
+        try:
+            res = col.query(
+                query_texts=[q],
+                n_results=min(n_candidates, 50),
+                include=["documents", "distances", "metadatas"]
+            )
+            for doc, dist, meta in zip(
+                res["documents"][0],
+                res["distances"][0],
+                res["metadatas"][0]
+            ):
+                if doc not in all_docs or dist < all_docs[doc][0]:
+                    all_docs[doc] = (dist, meta)
+        except Exception:
+            pass
 
     keywords = _body_part_keywords(body_part)
+    # extra_kw도 키워드에 추가
+    if extra_kw:
+        keywords = keywords + extra_kw.split()
 
-    def matches(meta, doc):
-        # section_title 만으로 판단 — 본문에서 부위 키워드를 찾으면
-        # (예: 어깨 스트레칭 설명 중 팔꿈치 각도를 언급하는 경우처럼) 다른 부위 섹션이
-        # 잘못 걸려드는 오탐이 생기므로 신뢰할 수 있는 섹션 제목만 사용한다.
+    def matches(doc, meta):
         title = (meta or {}).get("section_title") or ""
-        return any(kw in title for kw in keywords)
+        text = doc[:800]
+        return any(kw in title or kw in text for kw in keywords)
 
-    ranked = sorted(zip(docs, distances, metadatas), key=lambda x: x[1])
-    keyword_hits = [d for d, dist, meta in ranked if matches(meta, d)]
+    # 거리 기준 정렬 후 키워드 매치 우선
+    ranked = sorted(all_docs.items(), key=lambda x: x[1][0])
+    keyword_hits = [doc for doc, (dist, meta) in ranked if matches(doc, meta)]
+    fallback = [doc for doc, (dist, meta) in ranked if not matches(doc, meta)]
 
     if keyword_hits:
         filtered = keyword_hits[:TOP_K]
     else:
-        # 제목/본문 어디에도 부위 키워드가 없으면(메타데이터 없는 구버전 인덱스 등)
-        # 기존 거리 기준 필터로 폴백해 결과가 아예 없어지지 않게 한다.
-        filtered = [d for d, dist in zip(docs, distances) if dist < 0.85][:TOP_K] or docs[:3]
+        filtered = fallback[:TOP_K] if fallback else list(all_docs.keys())[:3]
 
     return "\n\n---\n\n".join(filtered), len(filtered)
 
 # body_part 라벨(app.py 가 만들어내는 문자열과 동일) → 부위별 빠른 선택과 같은 이모지.
 # AI 처방의 "<이모지 부위>" 헤더가 홈 처방 빠른 선택의 부위 헤더와 시각적으로 일치하도록 맞춘다.
 BODY_PART_EMOJI = {
-    "허리(요추)": "🔴", "목(경추)": "🔵", "어깨(견관절)": "🟢",
-    "무릎(슬관절)": "🟤", "고관절/골반": "🟣", "발목(족관절)": "⚫",
-    "손목(수근관절)": "🟠", "팔꿈치(주관절)": "🟡",
+    "허리(요추)": "요추", "목(경추)": "경추", "어깨(견관절)": "견관절",
+    "무릎(슬관절)": "슬관절", "고관절/골반": "고관절", "발목(족관절)": "족관절",
+    "손목(수근관절)": "수근관절", "팔꿈치(주관절)": "주관절",
 }
 
 
@@ -199,50 +244,92 @@ def build_prompt(req: SymptomRequest, context: str) -> str:
     if req.occupation:  extras += f"\n- 직업: {req.occupation}"
     if req.aggravating: extras += f"\n- 악화 요인: {req.aggravating}"
     if req.relieving:   extras += f"\n- 완화 요인: {req.relieving}"
-    part_emoji = BODY_PART_EMOJI.get(req.body_part, "🔘")
-    part_header = f"<{part_emoji} {req.body_part}>"
+
+    # 통증 단계 자동 판별
+    if req.pain_level >= 7:
+        pain_stage = "급성기(NRS 7~10): 수동 치료 중심, 강한 운동 금지"
+        stage_guide = "부드러운 ROM·등척성 운동·핫팩·ICT 위주로 처방"
+    elif req.pain_level >= 4:
+        pain_stage = "아급성기(NRS 4~7): 능동 운동 도입, 도수치료 병행"
+        stage_guide = "TrP 치료·Maitland Gr.III·스트레칭·초기 강화 운동 처방"
+    else:
+        pain_stage = "만성기(NRS 1~4): 운동치료 중심, 도수치료 보조"
+        stage_guide = "McGill Big3·강화운동·자세교정·재발방지 홈운동 처방"
+
+    # 직업별 특화 가이드
+    occ_guide = ""
+    if req.occupation:
+        occ_map = {
+            "사무직": "모니터 높이·키보드 위치·1시간마다 기립 교육 포함",
+            "간호사": "팀 리프팅·환자 이송 자세·허리 보호대 교육 포함",
+            "의료직": "장시간 고정 자세·어깨 거상 예방 교육 포함",
+            "교사": "장시간 기립·칠판 작업 자세 교육 포함",
+            "운전직": "운전 자세·헤드레스트 높이·2시간마다 스트레칭 포함",
+            "요리사": "주방 높이·반복 동작 보호 교육 포함",
+            "학생": "책상 자세·스마트폰 자세·50분 공부 후 스트레칭 포함",
+        }
+        for k, v in occ_map.items():
+            if k in req.occupation:
+                occ_guide = f"\n- 직업 특화: {v}"
+                break
+        if not occ_guide:
+            occ_guide = f"\n- 직업 특화: {req.occupation} 종사자의 작업 자세 교정 포함"
+
+    part_name = BODY_PART_EMOJI.get(req.body_part, req.body_part)
+    part_header = f"<{part_name}>"
+
     return f"""[역할]
 당신은 한국어로만 답변하는 MPS 전문 물리치료사입니다.
+TrP(트리거포인트) 치료·Maitland 가동술·MET·IASTM·운동치료 전문가입니다.
 
 [참고 지식 - 반드시 이 내용 기반으로만 처방]
 {context}
 
 [환자 정보]
 - 통증 부위: {req.body_part}
-- 통증 강도: {req.pain_level}/10
+- 통증 강도: {req.pain_level}/10 → {pain_stage}
+- 처방 방향: {stage_guide}
 - 지속 기간: {req.duration}
-- 증상: {req.symptoms}{extras}
+- 증상: {req.symptoms}{extras}{occ_guide}
 
 [엄격한 규칙]
 1. 반드시 한국어로만 작성
 2. {req.body_part} 부위만 처방. 다른 부위는 언급 금지
-3. 위 참고 지식에서 {req.body_part} 관련 내용만 사용
+3. 위 참고 지식에서 {req.body_part} 관련 TrP·가동술·운동 내용 우선 사용
+4. 통증 단계({pain_stage})에 맞는 강도로 처방
+5. 각 항목은 근육명·기법명·횟수·세트 구체적으로 명시
 
-[출력 형식 - 반드시 아래 형식 그대로, 이 순서로 작성. 줄바꿈 규칙을 정확히 지킬 것]
-- 첫 줄은 정확히 "{part_header}" 로 시작 (다른 텍스트 없이 그대로 출력)
-- 그 다음 빈 줄 1개, 그리고 아래 4개 카테고리만 이 순서로 작성
-- 각 카테고리는 "[카테고리명]" 한 줄, 그 다음 빈 줄 없이 바로 "- "로 시작하는 항목들
-- 항목과 항목 사이에는 빈 줄 없이 줄바꿈만 (각 항목은 한 줄로 작성, 항목 중간에 줄바꿈 금지)
-- 카테고리와 카테고리 사이에만 빈 줄 1개를 넣으세요
-- 즉, 전체에서 빈 줄이 들어가는 곳은 "부위 헤더 다음"과 "카테고리 사이" 딱 두 곳뿐입니다
-- 각 항목에 자세·동작·횟수를 구체적으로 포함 (예: "- 턱 당기기: 앉아서 이중턱 만들듯 당기기, 10초×10회×3세트")
-- 다른 문구(설명, 인사말, 번호 매기기 등)는 추가하지 말 것
+[출력 형식 - 반드시 아래 형식 그대로]
+- 첫 줄은 정확히 "{part_header}" 로 시작
+- 빈 줄 1개 후 5개 카테고리 순서대로 작성
+- 각 카테고리는 "[카테고리명]" 한 줄, 바로 "- "로 시작하는 항목들
+- 항목 사이 빈 줄 없음, 카테고리 사이만 빈 줄 1개
+- 각 항목은 한 줄로 (중간 줄바꿈 금지)
+- 다른 문구(설명·인사말·번호) 추가 금지
 
 {part_header}
 
+[TrP 치료]
+- ({req.body_part} 핵심 TrP 근육명: 허혈성압박/IASTM/건침 기법, 압박 시간·포인트 수 명시, 한 줄로)
+- ({req.body_part} 두 번째 TrP 근육, 한 줄로)
+
 [스트레칭]
-- ({req.body_part} 전용 스트레칭 3~5가지 중 첫 번째, 자세/동작/횟수 명시, 한 줄로)
-- ({req.body_part} 전용 스트레칭 두 번째, 한 줄로)
+- ({req.body_part} 전용 스트레칭, 자세/동작/유지시간/횟수 명시, 한 줄로)
+- ({req.body_part} 두 번째 스트레칭, 한 줄로)
+- ({req.body_part} 세 번째 스트레칭, 한 줄로)
 
 [운동치료]
-- ({req.body_part} 전용 강화운동 3~5가지 중 첫 번째, 자세/동작/횟수 명시, 한 줄로)
-- ({req.body_part} 전용 강화운동 두 번째, 한 줄로)
+- ({req.body_part} 강화운동, 자세/동작/횟수/세트 명시, 한 줄로)
+- ({req.body_part} 두 번째 운동, 한 줄로)
+- ({req.body_part} 세 번째 운동, 한 줄로)
 
 [자세교정]
-- ({req.body_part} 통증 예방을 위한 자세 및 생활습관, 한 줄로)
+- ({req.body_part} 자세교정 및 생활습관, 직업 특화 포함, 한 줄로)
+- (홈운동 루틴 추천, 한 줄로)
 
 [도수치료 권고]
-- ({req.body_part}에 적합한 Maitland/MET/허혈성압박/IASTM 기법, 한 줄로)
+- (Maitland 가동술 레벨·방향·횟수 명시, 한 줄로)
+- (MET 또는 MFR 기법, 한 줄로)
 """
 
 
@@ -307,9 +394,9 @@ async def health():
 
 @app.post("/prescription", response_model=PrescriptionResponse)
 async def get_prescription(req: SymptomRequest):
-    context, chunks_used = retrieve_context(req.symptoms, req.body_part)
+    context_full, chunks_used = retrieve_context(req.symptoms, req.body_part)
+    context = context_full[:1500]
     prescription = call_ollama(build_prompt(req, context))
-    save_log(req, prescription)
     return PrescriptionResponse(
         body_part=req.body_part, pain_level=req.pain_level,
         rag_chunks_used=chunks_used,

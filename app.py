@@ -3280,20 +3280,20 @@ def render_therapist_detail_rx():
 # AI 응답의 body_part 문자열(app.py 자체에서 만들어내는 라벨) → (내부 부위명, 이모지).
 # HOME_RX_PARTS 의 이모지와 맞춰 부위별 빠른 선택과 AI 처방 출력의 부위 헤더를 통일한다.
 BODY_PART_EMOJI = {
-    "허리(요추)": ("요추", "🔴"),
-    "목(경추)": ("경추", "🔵"),
-    "어깨(견관절)": ("견관절", "🟢"),
-    "무릎(슬관절)": ("슬관절", "🟤"),
-    "고관절/골반": ("고관절", "🟣"),
-    "발목(족관절)": ("족관절", "⚫"),
-    "손목(수근관절)": ("수근관절", "🟠"),
-    "팔꿈치(주관절)": ("주관절", "🟡"),
+    "허리(요추)": ("요추", ""),
+    "목(경추)": ("경추", ""),
+    "어깨(견관절)": ("견관절", ""),
+    "무릎(슬관절)": ("슬관절", ""),
+    "고관절/골반": ("고관절", ""),
+    "발목(족관절)": ("족관절", ""),
+    "손목(수근관절)": ("수근관절", ""),
+    "팔꿈치(주관절)": ("주관절", ""),
 }
 
 
 def _body_part_header(body_part: str) -> str:
-    name, emoji = BODY_PART_EMOJI.get(body_part, (body_part, "🔘"))
-    return f"{emoji} {name}"
+    name, emoji = BODY_PART_EMOJI.get(body_part, (body_part, ""))
+    return f"<{name}>"
 
 
 # AI 처방 원문에 등장할 수 있는 헤더 문구 → 표준 카테고리명 매핑 (구버전 "## 이모지 헤더"도 인식)
@@ -3418,7 +3418,7 @@ def render_home_rx_builder(kp, target_key):
             if pname not in HOME_RX_DATA:
                 continue
             cats = collect_part_selected_items(kp, pname)
-            block = format_part_block(f"{pemoji} {pname}", cats)
+            block = format_part_block(f"<{pname}>", cats)
             if block:
                 part_blocks.append(block)
         final_block = "\n\n\n".join(part_blocks)  # 부위 사이는 빈 줄 2개
@@ -4357,13 +4357,13 @@ def render_chart_form(chart_type, kp):
         if t_laser: techniques.append("레이저 치료")
         if t_eswt: techniques.append("체외충격파 ESWT")
         if t_traction: techniques.append("견인 치료")
-        if t_maitland: techniques.append(f"Maitland {', '.join(t_maitland)} → {t_maitland_area}")
-        if t_met: techniques.append(f"MET PIR → {t_met_area}")
-        if t_ic: techniques.append(f"허혈성 압박 → {t_ic_area}")
-        if t_prt: techniques.append(f"PRT → {t_prt_area}")
-        if t_mfr: techniques.append(f"근막 이완 MFR → {t_mfr_area}")
+        if t_maitland or t_maitland_area: techniques.append(f"Maitland {', '.join(t_maitland)} → {t_maitland_area}")
+        if t_met or t_met_area: techniques.append(f"MET PIR → {t_met_area}")
+        if t_ic or t_ic_area: techniques.append(f"허혈성 압박 → {t_ic_area}")
+        if t_prt or t_prt_area: techniques.append(f"PRT → {t_prt_area}")
+        if t_mfr or t_mfr_area: techniques.append(f"근막 이완 MFR → {t_mfr_area}")
         if t_init: techniques.append("INIT 통합기법")
-        if t_massage: techniques.append(f"마사지 ({', '.join(t_massage)}) → {t_massage_area}")
+        if t_massage or t_massage_area: techniques.append(f"마사지 ({', '.join(t_massage)}) → {t_massage_area}")
         _tech_block = "\n".join(f"  - {t}" for t in techniques) if techniques else "  없음"
         p_block = (f"■ 적용 기법:\n{_tech_block}\n\n■ 홈 프로그램:\n{p_home}\n\n"
                    f"■ 빈도: {p_freq} | 기간: {p_total} | 다음 방문: {p_next}\n■ 특이사항: {p_note}")
@@ -4629,10 +4629,30 @@ elif selected_tab == "🔍 섹션별 검색":
     else:
         filtered = all_sections
 
-    st.markdown(f"**총 {len(filtered)}개 섹션**")
+    # ── 페이지네이션 ──────────────────────────────
+    PAGE_SIZE = 10
+    total = len(filtered)
+    total_pages = max(1, (total + PAGE_SIZE - 1) // PAGE_SIZE)
+
+    if "sec_page" not in st.session_state:
+        st.session_state.sec_page = 0
+    if "sec_last_kw" not in st.session_state:
+        st.session_state.sec_last_kw = ""
+    if st.session_state.sec_last_kw != search_kw:
+        st.session_state.sec_page = 0
+        st.session_state.sec_last_kw = search_kw
+
+    cur_page = min(st.session_state.sec_page, total_pages - 1)
+    st.session_state.sec_page = cur_page
+    start = cur_page * PAGE_SIZE
+    end = min(start + PAGE_SIZE, total)
+    page_sections = filtered[start:end]
+
+    st.markdown(f"**총 {total}개 섹션** · {start+1}~{end}번째 (페이지 {cur_page+1}/{total_pages})")
     st.markdown("---")
 
-    for idx, sec in enumerate(filtered):
+    for idx, sec in enumerate(page_sections):
+        real_idx = start + idx
         sec_num = sec['id'].split(':')[0].strip()
         sec_name = sec['id'].split(':', 1)[-1].strip() if ':' in sec['id'] else sec['id']
 
@@ -4695,9 +4715,52 @@ elif selected_tab == "🔍 섹션별 검색":
                 data=print_html.encode("utf-8"),
                 file_name=f"섹션_{sec_num}.html",
                 mime="text/html",
-                key=f"sec_print_{idx}",
+                key=f"sec_print_{real_idx}",
                 use_container_width=False
             )
+
+
+    # ── 페이지 이동 버튼 (번호 방식) ──────────────
+    st.markdown("---")
+
+    # 현재 페이지 그룹 (10개씩)
+    GROUP_SIZE = 10
+    cur_group = cur_page // GROUP_SIZE
+    group_start = cur_group * GROUP_SIZE
+    group_end = min(group_start + GROUP_SIZE, total_pages)
+
+    # 이전 그룹·다음 그룹 + 번호 버튼
+    btn_cols = []
+    # 이전 그룹 버튼 포함 여부
+    has_prev_group = cur_group > 0
+    has_next_group = group_end < total_pages
+    num_btns = group_end - group_start
+    total_cols = (1 if has_prev_group else 0) + num_btns + (1 if has_next_group else 0)
+
+    cols = st.columns(total_cols)
+    col_idx = 0
+
+    if has_prev_group:
+        with cols[col_idx]:
+            if st.button("◀", key="sec_grp_prev"):
+                st.session_state.sec_page = (cur_group - 1) * GROUP_SIZE
+                st.rerun()
+        col_idx += 1
+
+    for pg in range(group_start, group_end):
+        with cols[col_idx]:
+            label = f"**{pg+1}**" if pg == cur_page else str(pg+1)
+            btn_type = "primary" if pg == cur_page else "secondary"
+            if st.button(label, key=f"sec_pg_{pg}", type=btn_type, use_container_width=True):
+                st.session_state.sec_page = pg
+                st.rerun()
+        col_idx += 1
+
+    if has_next_group:
+        with cols[col_idx]:
+            if st.button("▶", key="sec_grp_next"):
+                st.session_state.sec_page = group_end
+                st.rerun()
 
 elif selected_tab == "🤖 AI 맞춤 처방":
     st.markdown("""
