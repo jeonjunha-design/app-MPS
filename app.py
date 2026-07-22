@@ -4424,7 +4424,8 @@ NRS: 현재 {s_nrs_now}/10 | 최악 {s_nrs_worst}/10 | 최선 {s_nrs_best}/10
 진단: {a_diagnosis}
 주요 문제: {a_problem}
 연관 요인: {a_cause}
-단기 목표: {a_goal_short} | 장기 목표: {a_goal_long}
+단기 목표: {a_goal_short}
+장기 목표: {a_goal_long}
 
 [{_p_label}]
 {p_block}
