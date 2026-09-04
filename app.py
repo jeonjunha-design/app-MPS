@@ -44,11 +44,27 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-toggle_col1, toggle_col2 = st.columns([9, 1])
+# 다크모드·새로고침 버튼 (우측 상단 고정)
+st.markdown("""
+<style>
+div[data-testid="stButton"][id="dark_refresh_area"] button {
+    padding: 4px 10px !important;
+    font-size: 16px !important;
+    min-width: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 8px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+toggle_col1, toggle_col2, toggle_col3 = st.columns([9, 0.5, 0.5])
 with toggle_col2:
-    dark_label = "🌙 다크" if st.session_state.dark_mode else "☀️ 라이트"
-    if st.button(dark_label, key="toggle_dark_mode"):
+    dark_label = "🌙" if st.session_state.dark_mode else "☀️"
+    if st.button(dark_label, key="toggle_dark_mode", use_container_width=True):
         st.session_state.dark_mode = not st.session_state.dark_mode
+        st.rerun()
+with toggle_col3:
+    if st.button("🔄", key="refresh_btn", use_container_width=True):
         st.rerun()
 
 st.markdown("""
@@ -319,6 +335,7 @@ HOME_RX_LUMBAR_POSTURE = [
     "냉찜질: 급성기·운동 후, 15분, 2시간 간격",
     "폼롤러: 흉추 신전, 척추기립근 이완",
     "테니스볼: TrP 자가 압박, 바닥 또는 벽 이용",
+    "도넛 방석(Cushion) 사용으로 미골·좌골 부위 직접 압박 방지, 앉을 때 환부에 체중 집중 피하기",
 ]
 
 HOME_RX_LUMBAR_MANUAL = [
@@ -335,6 +352,8 @@ HOME_RX_CERVICAL_STRETCH = [
         "경추 굴곡(턱-가슴): 앉아서 턱을 가슴으로 천천히 내리기, 20~30초×3회, 하루 3세트",
         "경추 회전 스트레칭: 천천히 한쪽 바라보며 10초 유지, 각 방향 10초×5회, 하루 3세트",
         "흉쇄유돌근 스트레칭: 한 손 쇄골 고정, 머리 반대쪽 측굴+약간 신전, 20~30초×3회 양쪽",
+        "측면 목 늘리기: 반대쪽 손으로 머리를 지지하며 옆으로 당겨 20초 유지, 양측 각 3회 반복",
+        "경추 회전 이완: 앉은 자세에서 천천히 좌우로 고개를 돌리며 통증 없는 범위 내에서 15초 유지, 양방향 3회 반복",
     ]),
     ("🟡 아급성기 (NRS 4~7, 4~14일)", [
         "상부 승모근 스트레칭: 앉아 한 손 의자, 반대 손으로 머리 45도 방향 당기기, 30초×3회 양쪽",
@@ -357,6 +376,8 @@ HOME_RX_CERVICAL_EXERCISE = [
         "등척성 경추 신전: 앉아 후두부에 손 깍지 후 머리 뒤로 밀며 저항, 10초×10회×3세트",
         "등척성 경추 측방 굴곡: 앉아 측두부에 손 대고 머리 옆으로 밀며 저항, 10초×10회 양쪽",
         "등척성 경추 회전: 앉아 측두부 뒤쪽에 손 대고 회전 방향 밀며 저항, 10초×10회 양쪽",
+        "횡격막 호흡 운동: 편안한 자세에서 복부의 움직임을 느끼며 깊게 숨쉬기, 10회 심호흡 3세트",
+        "목 이완 스트레칭 운동: 어깨와 목 주변 근육을 부드럽게 늘려주는 동작을 천천히 수행, 10분 루틴",
     ]),
     ("2️⃣ 경추 안정화 운동 (6~12주)", [
         "견갑골 W 운동: 복와위 또는 서서 양팔 W 모양, 견갑골 뒤·아래로 당기기, 10초×15회×3세트",
@@ -380,6 +401,7 @@ HOME_RX_CERVICAL_POSTURE = [
     "운전 자세: 등받이 100~110도, 머리받침 후두부 닿게, 1시간마다 휴식",
     "온찜질: 아급성~만성기, 15~20분, 목-어깨 연결부·후두부",
     "냉찜질: 급성기·운동 후, 10~15분, 2시간 간격",
+    "작업 중 30분마다 일어나 목과 어깨를 가볍게 돌리거나 늘려주는 마이크로 브레이크 루틴",
 ]
 
 HOME_RX_CERVICAL_MANUAL = [
@@ -624,6 +646,8 @@ HOME_RX_HIP_POSTURE = [
     "온찜질: 아급성~만성기, 15~20분, 고관절 전방·후방",
     "냉찜질: 급성기·운동 후, 15~20분, 대전자 점액낭·서혜부",
     "폼롤러: IT band 측와위 대퇴 외측 롤링, 대둔근 앉아서 환측 롤러 위 체중 이동",
+    "도넛 방석(Cushion) 사용으로 미골·좌골 부위 직접 압박 방지, 앉을 때 환부에 체중 집중 피하기",
+    "무거운 물건 들기·장시간 좌위 자제, 30분마다 기립 후 가볍게 걷기",
 ]
 
 HOME_RX_HIP_MANUAL = [
@@ -653,6 +677,11 @@ HOME_RX_KNEE_STRETCH = [
         "힐-투-버텍 스트레칭: 복와위 발뒤꿈치를 엉덩이 쪽으로 발목 잡고 당기기, 30~45초×3회 양쪽",
         "완전 굴곡 스트레칭: 앉아서 발뒤꿈치를 엉덩이 아래로 당기며 체중으로 서서히 굴곡 증가, 30~60초×3회",
     ]),
+    ("🔵 TKR 수술 후 재활", [
+        "패시브 무릎 신전(Passive Knee Extension): 수술한 다리를 침대 위에서 발목을 이용해 천천히 펴주기, ROM 범위 내 통증 유발 전까지, 10회 반복",
+        "아킬레스건 스트레칭: 앉은 자세에서 수건으로 발끝을 몸 쪽으로 당겨 종아리 이완 유도, 20초×3세트",
+        "발목 가동 범위 운동(Ankle Pumps): 누워서 발목을 위아래로 움직여 혈액 순환 촉진, 통증 없는 범위 내 15회 반복",
+    ]),
 ]
 
 HOME_RX_KNEE_EXERCISE = [
@@ -674,6 +703,12 @@ HOME_RX_KNEE_EXERCISE = [
         "풀 스쿼트: 발 어깨너비 발끝 약간 외회전, 무릎 90도 이상 굽히기, 15회×3세트",
         "런지: 한 발 앞으로 내디디며 무릎 굽혀 내리기, 각 다리 12회×3세트",
     ]),
+
+    ("🔵 TKR 수술 후 재활", [
+        "대퇴사두근 등척성 수축(Quad Sets): 무릎 아래 수건 두고 다리 근육만 힘주어 수축, 5초 유지×10회×3세트",
+        "발목 저항 운동: 발바닥으로 수건 밀거나 당기기, 가벼운 저항, 15회×3세트",
+        "체중 부하 이동 연습(Weight Shift): 침대 가장자리 앉아 양쪽 다리로 번갈아 가볍게 체중 싣기, 10분 지속",
+    ]),
 ]
 
 HOME_RX_KNEE_POSTURE = [
@@ -685,6 +720,8 @@ HOME_RX_KNEE_POSTURE = [
     "냉찜질: 급성기·운동 후, 15~20분, 슬관절 전체, 관절 삼출 시 압박 붕대 함께",
     "온찜질: 아급성~만성기, 15~20분, 운동 전",
     "슬관절 보조기: 내측 골관절염 외측 쐐기 깔창, 슬개골 통증 McConnell 테이핑, 인대 불안정 기능성 보조기",
+    "🔵 TKR 수술 후 재활 - 수술 후 자세: 무릎 아래 쿠션·베개로 다리를 심장보다 높이 거상, 앉거나 서 있을 때 체중 양쪽으로 분산",
+    "🔵 TKR 수술 후 재활 - 홈운동 루틴: 냉찜질 후 아킬레스건 스트레칭 + Quad Sets 하루 3회 진행",
 ]
 
 HOME_RX_KNEE_MANUAL = [
@@ -777,6 +814,7 @@ HOME_RX_DATA = {
     "슬관절": ("KN", HOME_RX_KNEE_STRETCH, HOME_RX_KNEE_EXERCISE,
               HOME_RX_KNEE_POSTURE, HOME_RX_KNEE_MANUAL),
 }
+
 
 
 def _format_category_block(cat: str, items: list) -> str:
